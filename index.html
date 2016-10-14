@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/client.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        // select id activity_name,
+    </script>
+    <title>More or Less</title>
+
+    <style media="screen">
+        input[type=text]:invalid {
+            background: yellow;
+        }
+        input[type=number]:invalid {
+            background: yellow;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <form id="newActivity" action="http://localhost:1185" method="post">
+        <div class="title">
+            <p>Create new activity</p>
+        </div>
+        <div>
+            <div class="inputs">
+                <p>I would like to</p>
+            </div>
+            <div class="inputs">
+                <label for="activityName"></label>
+                <input type="text" id="activity_name" name="activity_name" placeholder="run, drink, meditate..." />
+            </div>
+            <div class="inputs">
+                <label for="more">more</label>
+                <input type="radio" value="+1" id="more" name="moreorless">
+                <label for="less">less</label>
+                <input type="radio" value="-1" id="less" name="moreorless">.
+            </div>
+            <div class="inputs">
+                <label for="activity_unit">
+                    <p>When I do</p>
+                    $('#activity_name');
+                    <p>, the smallest amount I might do is</p>
+                    <p id=""></p>
+                    $('#activty_name');
+                </label>
+                <label for="min_qty"></label>
+                <input type="number" id="min_qty" name="min_qty" placeholder="1, 10..." />
+                <input type="text" id="activity_unit" name="activity_unit" placeholder="miles, drink, minutes..." />
+            </div>
+            <div class="inputs">
+                <label for="activity_weight">On a scale of 1-10, with 10 being more important, how important is it to me that I [activity_name] [more_less]?</label>
+                <br>
+                <input type="number" id="activity_weight" name="activity_weight" min="1" max="10" placeholder="1-10" />
+            </div>
+        </div>
+        <div class="button">
+            <button type="submit" onclick="sendData({test:'ok'})">Save new activity</button>
+        </div>
+    </form>
+    <form action="">
+        <div class="title">
+            <p>Update Activities</p>
+            <ul>
+                <li>Friday October 14</li>
+                <li>Activity: Run</li>
+                    <li>Run: True</li>
+                    <li>Qty: 4</li>
+            </ul>
+
+        </div>
+        <div class="">
+
+        </div>
+    </form>
+    <form action="">
+        <div class="title">
+            <p>Activity Summary</p>
+            <ul>
+                <li>Run: +1</li>
+                <li>Drink: -1</li>
+                <li>Meditate: +1</li>
+            </ul>
+            <p>
+                Daily Value: 1
+            </p>
+        </div>
+        <div class="">
+
+        </div>
+    </form>
+
+</body>
+
+</html>
