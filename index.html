@@ -59,9 +59,9 @@
             align-items: center;
         }
     </style>
-    <script src="client.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script>
+    <script type="text/javascript">
+        // "database"
         var activities = [{
             name: "run",
             unitName: "mile",
@@ -79,31 +79,35 @@
             unitName: "minute",
             minQty: 3,
             moreorless: "more",
-            weight: 8
+            weight: 8,
+            didIDo: true,
+            dailyTotal: 12
         }];
-
-        var init = function() {
+    </script>
+    <script>
+        // go through activities array and update Update Activity section with existing activty data
+        function init() {
             activities.forEach(function(element) {
                 var template =
                     '<div>' +
-                    '<p>' + 'Did I ' + element.name + '?</p>' +
+                    '<p>' + 'Did I ' + '<span id="' + element.name + '">' + element.name + '</span>' + '?</p>' +
                     '<label for="yep">' + 'Yep:' + '</label>' +
                     '<input type="radio" name="didIDo" id="yep" value="+1">' +
                     '<label for="nope">' + 'Nope:' + '</label>' +
                     '<input type="radio" name="didIDo" id="nope" value="-1">' +
                     '<label for="howManyUnits">' + 'How many units?' + '</label>' +
                     '<input type="number" id="howManyUnits" name="howManyUnits" placeholder="1, 10..." />' +
-                    '<button type="button" name="button" onclick="didI()">' + 'Update ' + element.name + '</button>' +
+                    '<button type="button" name="button" onclick="didI(' + element.name + ')">' + 'Update ' + element.name + '</button>' +
                     '</div>';
                 $('#dropDown').append(template);
             })
         };
-
+        //
         $(document).ready(init);
 
-        console.log("Before:", activities);
+        // create new activity function
+        function createNew() {
 
-        var createNew = function() {
             var activity_name = $('#activityName').val();
             var moreorless;
             if ($('#more').val() > 0) {
@@ -122,16 +126,17 @@
                 moreorless: moreorless,
                 weight: weight
             };
-
+            // template defining what to print upon clicking 'Create New'
+            console.log("activity_name:", activity_name);
             var template =
                 '<div>' +
-                '<p>' + 'Did I ' + activity_name + '?</p>' +
+                '<p>' + 'Did I ' + '<span id="spanAct">' + activity_name + '</span>' + '?</p>' +
                 '<label for="yep">' + 'Yep:' + '</label>' +
                 '<input type="radio" name="didIDo" id="yep" value="+1">' +
                 '<label for="nope">' + 'Nope:' + '</label>' +
                 '<input type="radio" name="didIDo" id="nope" value="-1">' +
                 '<label for="howManyUnits">' + 'How many units?' + '</label>' +
-                '<input type="number" id="howManyUnits" name="howManyUnits" placeholder="1, 10..." />' +
+                '<input type="number" id="howManyUnits" name="howManyUnits" placeholder="1, 10...">' + '</input>' +
                 '<button type="button" name="button" onclick="didI()">' + 'Update ' + activity_name + '</button>' +
                 '</div>';
 
@@ -141,10 +146,11 @@
             var potentialElement = activities.filter(function(element) {
                 return element.name === actConst.name;
             });
+
             if (potentialElement.length === 0) {
                 activities.push(actConst);
                 $('#dropDown').append(template);
-                console.log("After push(createNew):", activities);
+                // console.log("After push(createNew):", activities);
                 return;
             } else {
                 activities = activities.map(function(element) {
@@ -153,13 +159,17 @@
                     }
                     return element;
                 })
+
                 console.log("After map(createNew):", activities);
             };
         }
 
-        var didI = function() {
+        // update function
+        function didI() {
+            // specific activity object, so we can store values for the specific activity being updated
 
-            var activity_name = $('#activityName').val();
+            // assign input values to vars to assign values in actConst
+            var activity_name = $('#spanAct').text();
             var howManyUnits = $('#howManyUnits').val();
             var didIDo;
             if ($('#yep').val() > 0) {
@@ -174,14 +184,23 @@
                 howManyUnits: howManyUnits
             };
 
+            console.log("actConst.name, .didIDo, .howManyUnits:", actConst.name, actConst.didIDo, actConst.howManyUnits);
             console.log("actConst(didI):", actConst);
+            console.log("activities after update:", activities);
 
+            // once all values are stored, update the correct activity in our main activties array
             activities = activities.map(function(element) {
                 if (element.name === actConst.name) {
-                    element = actConst;
+                    element.howManyUnits = actConst.howManyUnits;
+                    element.didIDo = actConst.didIDo;
                 }
                 return element;
             })
+        };
+
+        // dynamically update activty name in Create New Activity section
+        function blurFunc() {
+            document.getElementById('doSpan').innerHTML = $('#activityName').val();
         };
     </script>
 
@@ -199,7 +218,7 @@
             </div>
             <div class="input">
                 <label for="activity_name"></label>
-                <input type="text" id="activityName" name="activity_name" placeholder="run, drink, meditate..." />
+                <input type="text" id="activityName" name="activity_name" placeholder="run, drink, meditate..." onblur="blurFunc()" />
             </div>
             <div class="input">
                 <label for="more">more</label>
@@ -211,8 +230,7 @@
 
             <div class="input">
                 <label for="activity_unit">
-                    <p>The smallest amount I might</p>activity_name<p> +is</p>
-
+                    <p>The smallest amount I might <span id="doSpan"></span> is</p>
                 </label>
 
                 <label for="min_qty"></label>
@@ -232,7 +250,7 @@
         </div>
     </form>
 
-    <form id="update" action="" method="post">
+    <form id="update">
         <div class="title">
             <p>Activity Update</p>
         </div>
@@ -243,16 +261,13 @@
         </div>
     </form>
 
-    <form id="summary" action="">
+    <form id="summary">
         <div class="title">
+            <!--  -->
             <p>Daily Summary</p>
         </div>
         <div>
-            <ul>
-                <li>Run: +1</li>
-                <li>Drink: -1</li>
-                <li>Meditate: +1</li>
-            </ul>
+            <!-- if didIDo = true, then display “activityName + (howManyUnits * minQty = total) + unitName” -->
         </div>
         <p>
             Daily Value: 1
