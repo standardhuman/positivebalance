@@ -28,6 +28,11 @@
             margin-top: 1em;
         }
 
+        form.dropDown {
+            border: 0px;
+            margin: auto;
+        }
+
         label {
             /* To make sure that all labels have the same size and are properly aligned */
         }
@@ -55,15 +60,28 @@
             text-align: left;
         }
 
+        #balance {
+            text-align: right;
+            width: 150px;
+            text-align: left;
+            font: 1 em sans-serif;
+            font-weight: bold;
+        }
+
         .input {
             align-items: center;
-        }</style>
+        }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script name="activities_array" type="text/javascript">
         // "database"
-        var activities = [
-
-            ];
+        var activities = [{
+            minQty: 1,
+            moreorless: 1,
+            name: "run",
+            unitName: "mile",
+            weight: 6
+        }];
     </script>
     <script name="new_update_summary_functions">
         // populate Update Section with activity_name, didIdo, howManyUnits and button for each element in activities array
@@ -71,44 +89,49 @@
             // empty first
             $('#dropDown').empty();
             activities.forEach(function(element) {
-                var template =
-                '<div id="'+element.name+'">' +
-                '<p>' + 'Did I ' + '<span>' + element.name + '</span>' + '?</p>' +
-                '<form>'+
-                '<label for="yep">' + 'Yep:' + '</label>' +
-                '<input type="radio" name="didIDo" class="yep">' +
-                '<label for="nope">' + 'Nope:' + '</label>' +
-                '<input type="radio" name="didIDo" class="nope">' +
-                '<label for="howManyUnits">' + 'How many units?' + '</label>' +
-                '<input id="howManyUnits-'+element.name+'" type="number" class="howManyUnits" name="howManyUnits" placeholder="1, 10..." />' +
-                '<button type="button" name="button" onclick="updateActivity(' + element.name + ')">' + 'Update ' + element.name + '</button>' +
-                '</form>'+
-                '</div>';
-                $('#dropDown').append(template);
+                var template1 =
+                    '<div id="' + element.name + '">' +
+                    '<span class="dropDown">' +
+                    '<p>' + 'Did you ' + '<span>' + element.name + '</span>' + '?  ' +
+                    '<label for="yep">' + 'Yep:' + '</label>' +
+                    '<input type="radio" name="didIDo" class="yep" id="yes"> ' +
+                    '<label for="nope">' + 'Nope:' + '</label>' +
+                    '<input type="radio" name="didIDo" class="nope" id="no">' + '</p>' +
+// on click of yep:
+                    '<label for="howManyUnits">' + 'How many times did you ' +
+                    element.name + ' ' + element.minQty + ' ' + element.unitName +
+                    '?</label>' +
+                    '<input id="howManyUnits-' +
+                    element.name + '" type="number" class="howManyUnits" name="howManyUnits" placeholder="1, 10..." />' +
+                    '<button type="button" name="button" onclick="updateActivity(' + element.name + ')">' + 'Update ' + element.name + '</button>' +
+                    '</span>' +
+                    '</div>';
 
-            document.getElementById('howManyUnits-'+element.name).addEventListener('keypress', function(event) {
-                if (event.keyCode == 13) {
-                    event.preventDefault();
-                    add2Props(element.name);
-                }
-            });
-
+                $('#dropDown').append(template1);
+                document.getElementById('howManyUnits-' + element.name).addEventListener('keypress', function(event) {
+                    if (event.keyCode == 13) {
+                        event.preventDefault();
+                        add2Props(element.name);
+                    }
+                });
             });
         };
 
-        $(document).ready(function(){
+
+
+        // update views on initial page load
+        $(document).ready(function() {
             updateView();
             updateSummaryView();
             updateFinalNumView();
         });
 
         // on update click:
-        function updateActivity(arg){
+        function updateActivity(arg) {
             // modify didIDo and howManyUnits properties on activity objects
             var activity_name = arg.id;
-            var elementNameConcat = '#'+arg.id;
+            var elementNameConcat = '#' + arg.id;
             var howManyUnits = $(elementNameConcat).find('.howManyUnits').val();
-            console.log("howManyUnits:", howManyUnits);
             var didIDo;
             if ($(elementNameConcat).find('.yep:checked').val()) {
                 didIDo = 'yep';
@@ -134,7 +157,6 @@
             updateSummaryView();
             updateFinalNumView();
         }
-        // populate Update Section on initial page load
 
         // create new activity object in activities array and refresh Update Section
         function createNew() {
@@ -179,43 +201,41 @@
 
         // dynamically update activty name in Create New Activity section
         function blurFunc() {
-            document.getElementById('doSpan').innerHTML = $('#activityName').val()
+            document.getElementById('doSpan').innerHTML = $('#activityName').val();
         };
 
         // summarize certain properties of each activity
-        function updateSummaryView(){
+        function updateSummaryView() {
             $('#summary').empty();
             activities.forEach(function(element) {
                 var unitTotal = (element.moreorless * (element.howManyUnits * element.minQty) * element.weight);
                 var template =
-                // if didIDo = “yep”, then display “activityName + (howManyUnits * minQty = total) + unitName”
-                '<div id="'+element.name+'-summary'+'">' +
-                    '<ul>'+
-                        // '<li>' +element.name+ ': ' +unitTotal+ ' ' +element.unitName+ '</li>'+
-                        '<li>' +element.name+ ': ' +unitTotal+ '</li>'+
-                    '</ul>'+
-                '</div>';
+                    // if didIDo = “yep”, then display “activityName + (howManyUnits * minQty = total) + unitName”
+                    '<div id="' + element.name + '-summary' + '">' +
+                    '<ul>' +
+                    // '<li>' +element.name+ ': ' +unitTotal+ ' ' +element.unitName+ '</li>'+
+                    '<li>' + element.name + ': ' + unitTotal + '</li>' +
+                    '</ul>' +
+                    '</div>';
                 $('#summary').append(template);
             });
         };
 
-        function finalNum(){
-            return activities.reduce(function(acc, element){
+        function finalNum() {
+            return activities.reduce(function(acc, element) {
                 var unitTotal = (element.moreorless * (element.howManyUnits * element.minQty) * element.weight);
                 return unitTotal + acc;
-            },0)
+            }, 0)
         }
 
-        function updateFinalNumView(){
+        function updateFinalNumView() {
             $('#finalNum').empty();
-                var template =
-                // if didIDo = “yep”, then display “activityName + (howManyUnits * minQty = total) + unitName”
-                '<div id="finalNum">' +
-                    '<p>'+ 'Your balanace: ' + finalNum()+'</p>'+
+            var template =
+                '<div class="title" id="finalNum">' +
+                '<p>' + 'Balance: ' + '<span id="balance">' + finalNum() + '</span>' + '</p>' +
                 '</div>';
-                $('#finalNum').append(template);
+            $('#finalNum').append(template);
         };
-
     </script>
 
 </head>
@@ -254,7 +274,7 @@
             </div>
 
             <div class="input">
-                <label for="activity_weight">How important is it to me (1-10)?:</label>
+                <label for="activity_weight">How important is this to you? (10 is most important)</label>
                 <input type="number" id="activity_weight" name="activity_weight" min="1" max="10" placeholder="1-10" />
             </div>
         </div>
@@ -279,7 +299,6 @@
         <div class="title">
             <p>Summary</p>
         </div>
-
         <div>
             <label for="summarySection"></label>
             <ul id="summarySection">
@@ -289,7 +308,10 @@
     </form>
 
     <form id="finalNum">
-        <span></span>
+        <div class="title">
+
+            <!-- <span></span> -->
+        </div>
     </form>
 
 </body>
