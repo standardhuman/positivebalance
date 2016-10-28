@@ -35,6 +35,7 @@
         form.template{
             border: none;
             width: 80%;
+            padding: 0;
         }
 
         label {
@@ -83,13 +84,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script name="activities_array" type="text/javascript">
         // "database"
-        var activities = [{
-            minQty: 1,
-            moreorless: 1,
-            name: "run",
-            unitName: "mile",
-            weight: 6
-        }];
+        var activities = [
+        //   {
+        //     minQty: 1,
+        //     moreorless: 1,
+        //     name: "run",
+        //     unitName: "mile",
+        //     weight: 6
+        // }
+      ];
     </script>
     <script name="new_update_summary_functions">
         // populate Update Section with activity_name, didIdo, howManyUnits and button for each element in activities array
@@ -100,7 +103,7 @@
                     '<form class="template">'+
                     '<div id="' + element.name + '">' +
                     '<span class="dropDown">' +
-                    '<p>' + 'Did you ' + '<span>' + element.name + '</span>' + '?  ' +
+                    '<p>' + 'Did I ' + '<span>' + element.name + '</span>' + '?  ' +
 
                     '<label for="yep">' + 'Yep:' + '</label>' +
                     '<input class="' + element.name + 'yep " type="radio" name="didIDo" id="yep"> ' +
@@ -108,7 +111,7 @@
                     '<input class= "yepnope" type="radio" name="didIDo" id="nope">' + '</p>' +
 
                     '<div class="' + element.name + 'showOnYep ">' +
-                    '<label for="howManyUnits">' + 'How many times did you ' +
+                    '<label for="howManyUnits">' + 'How many times did I ' +
                     element.name + ' ' + element.minQty + ' ' + element.unitName +
                     '?</label>' +
                     '<input id="howManyUnits-' +
@@ -118,8 +121,6 @@
                     '</div>' +
                     '</div>' +
                     '</form>';
-
-
 
                 $('#dropDown').append(template);
                 document.getElementById('howManyUnits-' + element.name).addEventListener('keypress', function(event) {
@@ -298,7 +299,7 @@
             </div>
 
             <div class="input">
-                <label for="activity_weight">How important is this to you? (10 is most important)</label>
+                <label for="activity_weight">How important is this to me? (10 is most important)</label>
                 <input type="number" id="activity_weight" name="activity_weight" min="1" max="10" placeholder="1-10" />
             </div>
         </div>
