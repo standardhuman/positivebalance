@@ -11,6 +11,9 @@ var db = pgp(connectionString);
 
 // add query functions
 function getAllActivities(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
   db.any('SELECT * FROM activity')
     .then(function (data) {
       res.status(200)
