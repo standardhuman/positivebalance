@@ -95,6 +95,22 @@
       ];
     </script>
     <script name="new_update_summary_functions">
+
+        // pull in databse, parse and assign to activities
+        function getData(){
+            var url = 'http://localhost:3000/api/activities';
+            var xml = new XMLHttpRequest();
+            xml.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    console.log("responseText:", this.responseText);
+                    activities = JSON.parse(this.responseText);
+                    activities = activities.data;
+                }
+            };
+            xml.open('GET', url, true);
+            xml.send();
+        }
+
         // populate Update Section with activity_name, didIdo, howManyUnits and button for each element in activities array
         function updateView() {
             $('#dropDown').empty();
@@ -123,6 +139,7 @@
                     '</form>';
 
                 $('#dropDown').append(template);
+
                 document.getElementById('howManyUnits-' + element.name).addEventListener('keypress', function(event) {
                     if (event.keyCode == 13) {
                         event.preventDefault();
@@ -142,10 +159,9 @@
 
         };
 
-
-
         // update views on initial page load
         $(document).ready(function() {
+            getData();
             updateView();
             updateSummaryView();
             updateFinalNumView();
