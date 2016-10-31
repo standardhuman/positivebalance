@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html ng-app="moreorless">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/styles.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <script>
+        //moreorless is the app
+        var moreorless = angular.module('moreorless', []);
+
+        // The view is the html
+        // The model is the data associated with $scope
+        // The controller is the function we pass to .controller
+
+        //and then we use all these angular directives to connect them to eachother
+
+        moreorless.controller('ActivityListController', function ActivityListController($scope) {
+
+          $scope.newActivityName;
+          $scope.newActivityMoreorless;
+          $scope.newActivityAmount;
+          $scope.newActivityUnit;
+          $scope.newActivityScale;
+
+            $scope.activityList = [{
+                name: 'Dance',
+                unit: 'minute',
+                quantity: '10'
+            }, {
+                name: 'Run',
+                unit: 'minute',
+                quantity: '15'
+            }, {
+                name: 'Meditate',
+                unit: 'minute',
+                quantity: '5'
+            }];
+
+            $scope.addNewActivity = function(){
+
+              $scope.activityList.push({
+                name: $scope.newActivityName,
+                unit: $scope.newActivityUnit,
+                quantity: $scope.newActivityAmount
+              });
+
+            }
+        });
+    </script>
+    <title>More or Less</title>
+
+    <style media="screen">
+        input[type=text]:invalid {
+            background: yellow;
+        }
+
+        input[type=number]:invalid {
+            background: yellow;
+        }
+    </style>
+
+</head>
+
+
+<body ng-controller=ActivityListController>
+
+    <form id="newActivity">
+        <div class="title">
+            <p>Create new activity</p>
+        </div>
+        <div>
+            <div class="inputs">
+                <p>I would like to</p>
+            </div>
+            <div class="inputs">
+                <label for="activityName"></label>
+                <input ng-model="newActivityName" type="text" id="activity_name" name="activity_name" placeholder="run, drink, meditate..." />
+            </div>
+            <div class="inputs">
+                <label for="more">more</label>
+                <input type="radio" value="+1" id="more" name="moreorless">
+                <label for="less">less</label>
+                <input type="radio" value="-1" id="less" name="moreorless">.
+            </div>
+            <div class="inputs">
+                <label for="activity_unit">
+                    <p>When I {{newActivityName}},</p>
+                    <p>the smallest amount I might do is</p>
+                    <p id="">{{newActivityName}}</p>
+
+                </label>
+                <label for="min_qty"></label>
+                <input type="number" id="min_qty" name="min_qty" placeholder="1, 10..." />
+                <input type="text" id="activity_unit" name="activity_unit" placeholder="miles, drink, minutes..." />
+            </div>
+            <div class="inputs">
+                <label for="activity_weight">On a scale of 1-10, with 10 being more important, how important is it to me that I [activity_name] [more_less]?</label>
+                <br>
+                <input type="number" id="activity_weight" name="activity_weight" min="1" max="10" placeholder="1-10" />
+            </div>
+        </div>
+        <div class="button">
+            <button type="submit" ng-click="addNewActivity()">Save new activity</button>
+        </div>
+    </form>
+
+    <form action="">
+        <div class="title">
+            <p>Update Activities</p>
+            <ul>
+                <li ng-repeat="activity in activityList">
+                    <span>Activity: {{activity.name}}</span>
+                    <span>{{activity.name}}: True</span>
+                    <p>Qty: 4</p>
+                </li>
+
+                <li>
+                    <li>Friday October 14</li>
+                    <li>Activity: Run</li>
+                    <li>Run: True</li>
+                    <li>Qty: 4</li>
+                </li>
+            </ul>
+
+        </div>
+    </form>
+
+    <form action="">
+        <div class="title">
+            <p>Activity Summary</p>
+            <ul>
+                <li>Run: +1</li>
+                <li>Drink: -1</li>
+                <li>Meditate: +1</li>
+            </ul>
+            <p>
+                Daily Value: 1
+            </p>
+        </div>
+        <div class="">
+
+        </div>
+    </form>
+
+</body>
+
+</html>

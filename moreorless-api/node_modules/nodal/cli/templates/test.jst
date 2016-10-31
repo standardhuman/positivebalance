@@ -1,0 +1,20 @@
+'use strict';
+
+const Nodal = require('nodal');
+
+class {{= data.name }} extends Nodal.mocha.Test {
+
+  test(expect) {
+
+    it('Should do something', done => {
+
+      expect(null).to.not.exist;
+      done();
+
+    });
+
+  }
+
+}
+
+module.exports = {{= data.name }};

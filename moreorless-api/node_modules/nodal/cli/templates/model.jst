@@ -1,0 +1,10 @@
+'use strict';
+
+const Nodal = require('nodal');
+
+class {{= data.name }} extends Nodal.Model {}
+
+{{? !data.nodb }}{{= data.name }}.setDatabase(Nodal.require('db/main.js'));
+{{?}}{{= data.name }}.setSchema(Nodal.my.Schema.models.{{= data.name }});
+
+module.exports = {{= data.name }};

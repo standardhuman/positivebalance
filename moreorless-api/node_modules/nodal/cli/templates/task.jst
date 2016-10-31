@@ -1,0 +1,16 @@
+'use strict';
+
+const Nodal = require('nodal');
+
+class {{= data.name }}Task {
+
+  exec(args, callback) {
+
+    console.log('{{= data.name}} task executed');
+    callback();
+
+  }
+
+}
+
+module.exports = {{= data.name }}Task;

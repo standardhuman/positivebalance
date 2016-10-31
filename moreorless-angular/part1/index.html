@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en" ng-app=phoneApp>
+
+<head>
+    <meta charset="utf-8">
+    <title>My HTML File</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <script>
+        // Define the `phonecatApp` module
+        //Our first factoring pattern requires that it be assigned variable
+        //Which is our global application object
+        var phoneApp = angular.module('phoneApp', []);
+
+        //add the component to the module
+        angular.
+        module('phoneApp').
+        component('phoneList', {
+            template: '<ul>' +
+                '<li ng-repeat="phone in $ctrl.phones">' +
+                '<span>{{phone.name}}</span>' +
+                '<p>{{phone.snippet}}</p>' +
+                '</li>' +
+                '</ul>',
+
+            controller: function PhoneListController() {
+                this.phones = [{
+                    name: 'Nexus S',
+                    snippet: 'Fast just got faster with Nexus S.'
+                }, {
+                    name: 'Motorola XOOM™ with Wi-Fi',
+                    snippet: 'The Next, Next Generation tablet.'
+                }, {
+                    name: 'MOTOROLA XOOM™',
+                    snippet: 'The Next, Next Generation tablet.'
+                }];
+            }
+        });
+
+
+        //templated module
+        angular.
+        module('phoneApp').
+        component('phoneListTemplated', {
+
+            templateUrl: 'phoneList.template.html',
+
+            controller: function PhoneListController() {
+                this.phones = [{
+                    name: 'Nexus S',
+                    snippet: 'Fast just got faster with Nexus S.'
+                }, {
+                    name: 'Motorola XOOM™ with Wi-Fi',
+                    snippet: 'The Next, Next Generation tablet.'
+                }, {
+                    name: 'MOTOROLA XOOM™',
+                    snippet: 'The Next, Next Generation tablet.'
+                }];
+            }
+        });
+
+
+        /*
+        new templated module with a different template
+        The template for this component might look like magic
+        For example... WTF is:
+          ng-model=$ctrl.query
+          ng-repeat="phone in $ctrl.phones | filter:$ctrl.query"
+        */
+        angular.
+        module('phoneApp').
+        component('phoneListFilterTemplated', {
+
+            templateUrl: 'phoneListFilter.template.html',
+
+            controller: function PhoneListController() {
+                this.phones = [{
+                    name: 'Nexus S',
+                    snippet: 'Fast just got faster with Nexus S.'
+                }, {
+                    name: 'Motorola XOOM™ with Wi-Fi',
+                    snippet: 'The Next, Next Generation tablet.'
+                }, {
+                    name: 'MOTOROLA XOOM™',
+                    snippet: 'The Next, Next Generation tablet.'
+                }];
+            }
+        });
+
+
+        /*
+        new templated module with a different template AND
+        a new piece of data in the model...
+
+        The template for this component might look like magic
+        For example... WTF is:
+          ng-model=$ctrl.query
+          ng-repeat="phone in $ctrl.phones | filter:$ctrl.query"
+
+        */
+
+        angular.
+        module('phoneApp').
+
+        component('phoneListFilterSortTemplated', {
+
+            templateUrl: 'phoneListFilterSort.template.html',
+
+            controller: function PhoneListController() {
+                this.phones = [{
+                    name: 'Nexus S',
+                    snippet: 'Fast just got faster with Nexus S.',
+                    age: 1
+                }, {
+                    name: 'Motorola XOOM™ with Wi-Fi',
+                    snippet: 'The Next, Next Generation tablet.',
+                    age: 2
+                }, {
+                    name: 'MOTOROLA XOOM™',
+                    snippet: 'The Next, Next Generation tablet.',
+                    age: 3
+                }];
+
+                this.orderProp = 'age';
+            }
+        });
+
+        /*
+        Here's a point where Angular gets messy
+        And kind of stupid.
+
+        1. var self = this... is an generally anti-pattern
+        Can .call, .apply or .bind be used here instead?
+
+        2. Angular provides the $http object to PhoneListController function
+        behind the scenes. Just include it in the function signature.
+        This is called dependency injection. It's a peculiar pattern.
+
+        3. Angular does this in such a way that the code breaks if minified
+        So the below code works just fine now
+        But requires some more logic, if you want to minify it...
+
+
+        The next 3 examples are all refactors of the same component
+        All intended to address these issues
+
+        */
+
+        angular.
+        module('phoneApp').
+        component('phoneListFilterSortAjaxTemplated', {
+
+            templateUrl: 'phoneListFilterSortAjax.template.html',
+
+            controller: function PhoneListController($http) {
+                var self = this;
+                self.orderProp = 'age';
+
+                $http.get('phones.json').then(function(response) {
+                    self.phones = response.data;
+                });
+            }
+        });
+
+        /*
+        Refactor #1;
+        Keeping things sane with bind
+
+        Exact same template
+        But component uses .bind instead of 'self'
+
+        */
+
+        angular.
+        module('phoneApp').
+        component('phoneListFilterSortAjaxTemplatedBind', {
+
+            templateUrl: 'phoneListFilterSortAjax.template.html',
+
+            controller: function PhoneListController($http) {
+
+                this.orderProp = 'age';
+
+                $http.get('phones.json').then(function(response) {
+                    this.phones = response.data;
+                }.bind(this));
+            }
+        });
+
+        /*
+        Refactor #2;
+        Bind and now uses the $inject property...
+        Which requires defining the function in enclosing scope
+        So that the $inject property of the function can be accessed
+
+        */
+
+        var PhoneListController = function PhoneListController($http) {
+
+            this.orderProp = 'age';
+
+            $http.get('phones.json').then(function(response) {
+                this.phones = response.data;
+            }.bind(this));
+        };
+
+        PhoneListController.$inject = ['$http'];
+
+        angular.
+        module('phoneApp').
+        component('phoneListFilterSortAjaxTemplatedBindInject', {
+            templateUrl: 'phoneListFilterSortAjax.template.html',
+            controller: PhoneListController
+        });
+
+        /*
+        Refactor #3;
+        Bind and now uses inline-annotation pattern
+        */
+
+        var PhoneListController = function PhoneListController($http) {
+
+            this.orderProp = 'age';
+
+            $http.get('phones.json').then(function(response) {
+                this.phones = response.data;
+            }.bind(this));
+        };
+
+        angular.
+        module('phoneApp').
+        component('phoneListFilterSortAjaxTemplatedBindInline', {
+            templateUrl: 'phoneListFilterSortAjax.template.html',
+            controller: ['$http',PhoneListController]
+        });
+
+        /*
+        Refactor #4;
+          And last but not least, the common pattern of... including the
+          Controller function definition (which is a constructor)
+          Inline in the array...
+
+        */
+
+        angular.
+        module('phoneApp').
+        component('phoneListFilterSortAjaxTemplatedBindInlineDefinition', {
+            templateUrl: 'phoneListFilterSortAjax.template.html',
+            controller: ['$http', function PhoneListController($http) {
+
+                this.orderProp = 'age';
+
+                $http.get('phones.json').then(function(response) {
+                    this.phones = response.data;
+                }.bind(this));
+            }]
+        });
+
+
+    </script>
+
+</head>
+
+
+<body>
+
+    <p> Factoring: Angular using ng-controller directive </p>
+
+    <div ng-controller="PhoneListController">
+
+        <ul>
+            <li ng-repeat="phone in phones">
+                <span>{{phone.name}}</span>
+                <p>{{phone.snippet}}</p>
+            </li>
+        </ul>
+    </div>
+
+    <p> Factoring: Angular using a component with a URL string template</p>
+
+    <phone-list></phone-list>
+
+    <p> Factoring: Angular using component with an HTML template</p>
+
+    <phone-list-templated></phone-list-templated>
+
+    <p> Factoring: Angular with an HTML template that uses the filter feature of the repeat directive</p>
+
+    <phone-list-filter-templated></phone-list-filter-templated>
+
+    <p> Factoring: Angular with an HTML template that uses the filter and sort feature of the repeat directive</p>
+
+    <phone-list-filter-sort-templated></phone-list-filter-sort-templated>
+
+    <p> Factoring: Angular with an HTML template that uses the filter and sort feature of the repeat directive
+      and gets model data via ajax request using the $http service
+    </p>
+
+    <phone-list-filter-sort-ajax-templated></phone-list-filter-sort-ajax-templated>
+
+    <p> Factoring: Exact same component, except removing the var self = this pattern and replacing it with .bind
+    </p>
+
+    <phone-list-filter-sort-ajax-templated-bind></phone-list-filter-sort-ajax-templated-bind>
+
+    <p> Factoring: Exact same component, except using the .$inject property pattern for explicit dependency injection
+    </p>
+
+    <phone-list-filter-sort-ajax-templated-bind-inject></phone-list-filter-sort-ajax-templated-bind-inject>
+
+    <p> Factoring: Exact same component, except using inline annotation in the array
+    </p>
+
+    <phone-list-filter-sort-ajax-templated-bind-inline></phone-list-filter-sort-ajax-templated-bind-inline>
+
+    <p> Factoring: Exact same component, except using inline annotation in the array, including the function definition
+    </p>
+
+    <phone-list-filter-sort-ajax-templated-bind-inline-definition></phone-list-filter-sort-ajax-templated-bind-inline-definition>
+
+</body>
+
+</html>
