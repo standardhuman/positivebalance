@@ -96,8 +96,8 @@
 
                 </label>
                 <label for="min_qty"></label>
-                <input type="number" id="min_qty" name="min_qty" placeholder="1, 10..." />
-                <input type="text" id="activity_unit" name="activity_unit" placeholder="miles, drink, minutes..." />
+                <input type="number" ng-model="newActivityAmount" id="min_qty" name="min_qty" placeholder="1, 10..." />
+                <input type="text" ng-model="newActivityUnit" id="activity_unit" name="activity_unit" placeholder="miles, drink, minutes..." />
             </div>
             <div class="inputs">
                 <label for="activity_weight">On a scale of 1-10, with 10 being more important, how important is it to me that I [activity_name] [more_less]?</label>
@@ -106,7 +106,7 @@
             </div>
         </div>
         <div class="button">
-            <button type="submit" ng-click="addNewActivity()">Save new activity</button>
+            <button type="button" ng-click="addNewActivity()">Save new activity</button>
         </div>
     </form>
 
@@ -117,7 +117,7 @@
                 <li ng-repeat="activity in activityList">
                     <span>Activity: {{activity.name}}</span>
                     <span>{{activity.name}}: True</span>
-                    <p>Qty: 4</p>
+                    <p>Qty: {{activity.quantity}}</p>
                 </li>
 
                 <li>

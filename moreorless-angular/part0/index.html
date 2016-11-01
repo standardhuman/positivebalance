@@ -18,9 +18,9 @@
     <div ng-controller="PhoneListController">
 
         <ul>
-            <li ng-repeat="phone in phones">
-                <span>{{phone.name}}</span>
-                <p>{{phone.snippet}}</p>
+            <li ng-repeat="tom in phones">
+                <span>{{tom.name}}</span>
+                <p>{{tom.snippet}}</p>
             </li>
         </ul>
     </div>
@@ -32,10 +32,10 @@
         var phoneApp = angular.module('phoneApp', []);
 
         // Define the `PhoneListController` controller on the `phonecatApp` module
-        phonecatApp.controller('PhoneListController', function PhoneListController($scope) {
+        phoneApp.controller('PhoneListController', function PhoneListController($scope) {
             $scope.phones = [{
-                name: 'Nexus S',
-                snippet: 'Fast just got faster with Nexus S.'
+                name: 'Samsung Note 7',
+                snippet: 'Accidentally down your flight'
             }, {
                 name: 'Motorola XOOM™ with Wi-Fi',
                 snippet: 'The Next, Next Generation tablet.'
@@ -44,7 +44,7 @@
                 snippet: 'The Next, Next Generation tablet.'
             }];
         });
-        
+
     </script>
 
 

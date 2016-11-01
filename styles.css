@@ -1,3 +1,10 @@
+input[type=text]:invalid {
+    background: yellow;
+}
+input[type=number]:invalid {
+    background: yellow;
+}
+
 form {
     /* Just to center the form on the page */
     margin: 0 auto;

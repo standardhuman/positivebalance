@@ -1,29 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html ng-app=positiveBalance>
 
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/styles.css">
-    <script src="/client.js"></script>
+    <!-- <script src="/client.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
     <script>
-        // select id activity_name,
+        var positiveBalance = angular.module('positiveBalance', []);
+
+        positiveBalance.controller('ActivityController', function ActivityController($scope) {
+          $scope.newActivityName;
+          $scope.newActivityMoreorless;
+          $scope.newActivityAmount;
+          $scope.newActivityUnit;
+          $scope.newActivityScale;
+          // $scope.howManyUnits;
+
+          $scope.activityList = [{
+            name: 'clown',
+            unit: 'clownings',
+            quantity: 5000,
+            moreorless: 1,
+            scale: 6,
+            didido: 1,
+            howmanyunits: 3
+          }];
+
+          $scope.addNewActivity = function() {
+            console.log($scope);
+            $scope.activityList.push({
+              name: $scope.newActivityName,
+              unit: $scope.newActivityUnit,
+              quantity: $scope.newActivityAmount,
+              moreorless: $scope.newActivityMoreorless,
+              scale: $scope.newActivityScale
+            });
+         };
+
+         $scope.updateActivity = function(activity, howManyUnits) {
+           console.log(activity)
+         	 var index = $scope.activityList.indexOf(activity);
+           console.log("index", index);
+         	 if(index > -1){
+            //  $scope.activityList[index].didido = $scope.didIDo;
+             $scope.activityList[index].howmanyunits = howManyUnits;
+             console.log("activityList after func", $scope.activityList[index]);
+           }
+         };
+    });
     </script>
+
     <title>More or Less</title>
-
-    <style media="screen">
-        input[type=text]:invalid {
-            background: yellow;
-        }
-        input[type=number]:invalid {
-            background: yellow;
-        }
-    </style>
-
 </head>
 
-
-<body>
+<body ng-controller="ActivityController">
 
     <form id="newActivity" action="http://localhost:1185/v1/activities" method="post">
         <div class="title">
@@ -35,13 +68,13 @@
             </div>
             <div class="inputs">
                 <label for="activityName"></label>
-                <input type="text" id="activity_name" name="activity_name" placeholder="run, drink, meditate..." />
+                <input type="text" ng-model="newActivityName" id="activity_name" name="activity_name" placeholder="run, drink, meditate..." />
             </div>
             <div class="inputs">
                 <label for="more">more</label>
-                <input type="radio" value="+1" id="more" name="moreorless">
+                <input type="radio" ng-model="newActivityMoreorless" value="+1" id="more" name="moreorless">
                 <label for="less">less</label>
-                <input type="radio" value="-1" id="less" name="moreorless">.
+                <input type="radio" ng-model="newActivityMoreorless" value="-1" id="less" name="moreorless">.
             </div>
             <div class="inputs">
                 <label for="activity_unit">
@@ -49,26 +82,35 @@
                     $('#activity_name');
                     <p>, the smallest amount I might do is</p>
                     <p id=""></p>
-                    $('#activty_name');
+                    $('#activity_name');
                 </label>
                 <label for="min_qty"></label>
-                <input type="number" id="min_qty" name="min_qty" placeholder="1, 10..." />
-                <input type="text" id="activity_unit" name="activity_unit" placeholder="miles, drink, minutes..." />
+                <input type="number" ng-model="newActivityAmount" id="min_qty" name="min_qty" placeholder="1, 10..." />
+                <input type="text" ng-model="newActivityUnit" id="activity_unit" name="activity_unit" placeholder="miles, drink, minutes..." />
             </div>
             <div class="inputs">
                 <label for="activity_weight">On a scale of 1-10, with 10 being more important, how important is it to me that I [activity_name] [more_less]?</label>
                 <br>
-                <input type="number" id="activity_weight" name="activity_weight" min="1" max="10" placeholder="1-10" />
+                <input type="number" ng-model="newActivityScale" id="activity_weight" name="activity_weight" min="1" max="10" placeholder="1-10" />
             </div>
         </div>
         <div class="button">
-            <button type="submit" onclick="sendData({test:'ok'})">Save new activity</button>
+            <button type="button" ng-click="addNewActivity()">Save new activity</button>
         </div>
     </form>
     <form action="">
         <div class="title">
             <p>Update Activities</p>
             <ul>
+                <li ng-repeat="activity in activityList">
+                  <form>
+                  <span>{{activity.name}}</span><br>
+                  <label for="activity_quantity">How many {{activity.quantity}} {{activity.unit}}</label>
+                  <input ng-model="howManyUnits" type="number" name="number" id="activity_quantity"></input>
+                  <button type="button" ng-click="updateActivity(activity, howManyUnits)"></button>
+                  </form>
+                </li>
+
                 <li>Friday October 14</li>
                 <li>Activity: Run</li>
                     <li>Run: True</li>
