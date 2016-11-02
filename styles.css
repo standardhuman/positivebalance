@@ -17,7 +17,18 @@ form {
     border: 1px solid #CCC;
     border-radius: 1em;
 }
-input{
-    width: inherit;
+input {
     padding: .5em;
+}
+#activity_weight{
+    width: 35px;
+}
+#min_qty{
+    width: 45px;
+}
+#activity_quantity{
+    width: 45px;
+}
+textarea {
+    width: 200px;
 }
