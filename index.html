@@ -22,59 +22,94 @@
                 moreorless: 1,
                 quantity: 1,
                 unit: 'mile',
+                weight: 5,
+                didido: 1,
+                howmanyunits: 0
+            }, {
+                name: 'drink',
+                moreorless: -1,
+                quantity: 1,
+                unit: 'drink',
                 weight: 6,
                 didido: 1,
-                howmanyunits: 3
+                howmanyunits: 0
             }];
 
+            // $scope.dailyTotal = function() {
+            //     var totalPoints = 0;
+            //     for (var i = 0; i < $scope.activityList.length; i++) {
+            //         $scope.activityList[i].points = (($scope.activityList[i].quantity * $scope.activityList[i].howmanyunits) * $scope.activityList[i].weight / 10) * $scope.activityList[i].moreorless;
+            //         totalPoints += $scope.activityList[i].points;
+            //     }
+            //     return totalPoints;
+            // }
+            $scope.combinedNum = {};
             $scope.dailyTotal = function() {
                 console.log("inside dailTotal func");
+                var total = 0;
                 for (var i = 0; i < $scope.activityList.length; i++) {
                     $scope.activityList[i].points = (($scope.activityList[i].quantity * $scope.activityList[i].howmanyunits) * $scope.activityList[i].weight / 10);
-                    console.log("inside loops"$scope.activityList[i].points);
+                    console.log("inside loops", $scope.activityList[i].points);
                     // var points = $scope.activityList[i].points;
+                    total += $scope.activityList[i].points;
                 }
-                var reducedPoints = $scope.activityList.points.reduce(function(acc, curr) {
-                    console.log("$scope.activityList[i].points:", $scope.activityList.points);
-                    return acc + curr;
-                }, 0);
-                return reducedPoints;
+                $scope.combinedNum.total = total;
+            }
+            $scope.addNewActivity = function(activity) {
+
+                for (var i = 0; i < $scope.activityList.length; i++) {
+                    console.log("$scope.create.newActivityName:", $scope.create.newActivityName);
+                    console.log("$scope.activityList[i].name:", $scope.activityList[i].name);
+                    if ($scope.create.newActivityName === $scope.activityList[i].name) {
+                        $scope.activityList[i].unit = $scope.create.newActivityUnit;
+                        $scope.activityList[i].quantity = $scope.create.newActivityAmount;
+                        $scope.activityList[i].moreorless = $scope.create.newActivityMoreorLess;
+                        $scope.activityList[i].weight = $scope.create.newActivityWeight;
+
+                        console.log("inside if");
+                            // unit: $scope.create.newActivityUnit,
+                            // quantity: $scope.create.newActivityAmount,
+                            // moreorless: $scope.create.newActivityMoreorless,
+                            // weight: $scope.create.newActivityWeight,
+                            // points: 0
+                            return;
+                    } else {
+                        $scope.activityList.push({
+                            name: $scope.create.newActivityName,
+                            unit: $scope.create.newActivityUnit,
+                            quantity: $scope.create.newActivityAmount,
+                            moreorless: $scope.create.newActivityMoreorless,
+                            weight: $scope.create.newActivityWeight,
+                            points: 0
+                        })
+                    }
+                };
             }
 
-            // $scope.activityList[i].points + $scope.activityList[i].points / $scope.activityList.length
-
-
-            // var studentObject;
-            // studentObject = $scope.student;
-            // return studentObject.firstName + " " + studentObject.lastName;
-            $scope.addNewActivity = function() {
-                $scope.activityList.push({
-                    name: $scope.create.newActivityName,
-                    unit: $scope.create.newActivityUnit,
-                    quantity: $scope.create.newActivityAmount,
-                    moreorless: $scope.create.newActivityMoreorless,
-                    weight: $scope.create.newActivityScale
-                });
-            };
-
-            //  $scope.updateActivity = function(activity) {
-            //  	 var index = $scope.activityList.indexOf(activity);
-            //  	 if(index > -1){
-            //      $scope.activityList[index].howmanyunits = $scope.create.howManyUnits
-            //      console.log("activityList after func", $scope.activityList[index]);
-            //    }
-            //  };
+            $scope.convertMoreorLess = function() {
+                $scope.moreorlessModel = {};
+                console.log($scope.create.newActivityMoreorless);
+                if ($scope.create.newActivityMoreorless == 1) {
+                    $scope.moreorlessModel.moreorless = "more";
+                } else {
+                    $scope.moreorlessModel.moreorless = "less";
+                }
+                return $scope.moreorlessModel.moreorless;
+            }
 
             $scope.updateActivity = function(activity) {
-                console.log($scope.activityList)
-                    // update activity.
-                    // update summary view
-
+                activity.points = activity.howmanyunits
+                    // console.log("activity.points:", activity.points);
+                    // console.log("activity.howmanyunits:", activity.howmanyunits);
+                    // console.log("$scope.activityList.points:", $scope.activityList.points);
+                    // console.log("$scope.activityList.howmanyunits:", $scope.activityList.howmanyunits);
+                    // console.log("$scope.activityList.name:", $scope.activityList.name);
+                    // console.log($scope.activityList)
             }
         });
     </script>
 
-    <title>More or Less</title>
+    <title>Positive Balance</title>
 </head>
 
 <!-- np-app attribute can be in double quotes!  -->
@@ -91,9 +126,9 @@
                 <label for="activityName"></label>
                 <input type="text" ng-model="create.newActivityName" id="activity_name" name="activity_name" placeholder="run, drink, meditate..." />
                 <label for="more">more</label>
-                <input type="radio" ng-model="create.newActivityMoreorless" value="more" id="more" name="moreorless">
+                <input type="radio" ng-model="create.newActivityMoreorless" value="1" id="more" name="moreorless" ng-onclick="convertMoreorLess()">
                 <label for="less">less</label>
-                <input type="radio" ng-model="create.newActivityMoreorless" value="less" id="less" name="moreorless">.
+                <input type="radio" ng-model="create.newActivityMoreorless" value="-1" id="less" name="moreorless" ng-onclick="convertMoreorLess()">.
             </p>
         </div>
         <div class="inputs">
@@ -107,15 +142,17 @@
             </p>
         </div>
         <div class="inputs">
-            <label for="activity_weight">On a scale of 1-10, with 10 being most important, how important is it to me that I {{create.newActivityName}} {{create.newActivityMoreorless}}?</label>
+            <label for="activity_weight">On a scale of 1-10, with 10 being most important, how important is it to me that I {{create.newActivityName}} {{convertMoreorLess()}}?</label>
             <br>
-            <input type="number" ng-model="create.newActivityScale" id="activity_weight" name="activity_weight" min="1" max="10" placeholder="1-10" />
+            <input type="number" ng-model="create.newActivityWeight" id="activity_weight" name="activity_weight" min="1" max="10" placeholder="1-10" />
         </div>
         <br>
         <div class="button">
             <button type="button" ng-click="addNewActivity()">Save new activity</button>
         </div>
     </form>
+
+
     <form>
         <p class="title">Update Activities</p>
         <ul>
@@ -123,7 +160,8 @@
                 <form>
                     <p><label for="activity_quantity">How many times did I {{activity.name}} {{activity.quantity}} {{activity.unit}}?</label></p>
                     <input ng-model="activity.howmanyunits" type="number" name="number" id="activity_quantity" />
-                    <button type="button" ng-click="updateActivity(activity)">Update {{activity.unit}}</button>
+                    <button type="button" ng-click="dailyTotal()">Update {{activity.unit}}</button>
+
                 </form>
             </div>
         </ul>
@@ -132,12 +170,11 @@
         <p class="title">Points Summary</p>
         <div class="items" ng-repeat="activity in activityList">
             <p>
-                {{activity.name}}: <span>{{(activity.quantity * activity.howmanyunits) * activity.weight / 10}}</span>
+                {{activity.name}}: <span>{{((activity.quantity * activity.howmanyunits) * activity.weight / 10) * activity.moreorless}}</span>
             </p>
         </div>
         <p>
-
-            Daily Total: {{dailyTotal()}}
+            Daily Total: {{combinedNum.total}}
             <!--this will equal the average of all the activities points  -->
         </p>
     </form>
