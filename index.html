@@ -15,11 +15,11 @@
             $scope.create = {}
 
             $scope.activityList = [{
-                name: 'clown',
-                unit: 'clownings',
-                quantity: 5000,
+                name: 'run',
                 moreorless: 1,
-                scale: 6,
+                quantity: 1,
+                unit: 'mile',
+                weight: 6,
                 didido: 1,
                 howmanyunits: 3
             }];
@@ -30,7 +30,7 @@
                     unit: $scope.create.newActivityUnit,
                     quantity: $scope.create.newActivityAmount,
                     moreorless: $scope.create.newActivityMoreorless,
-                    scale: $scope.create.newActivityScale
+                    weight: $scope.create.newActivityScale
                 });
             };
 
@@ -44,6 +44,9 @@
 
             $scope.updateActivity = function(activity) {
                 console.log($scope.activityList)
+                // update activity.
+                // update summary view
+
             }
         });
     </script>
@@ -55,15 +58,11 @@
 
     <form id="newActivity" action="http://localhost:1185/v1/activities" method="post">
         <p class="title">Create new activity</p>
-        <div>
-            <div class="inputs">
-            </div>
+
             <div class="inputs">
                 <p>I would like to
                     <label for="activityName"></label>
                     <input type="text" ng-model="create.newActivityName" id="activity_name" name="activity_name" placeholder="run, drink, meditate..." />
-            </div>
-            <div class="inputs">
                 <label for="more">more</label>
                 <input type="radio" ng-model="create.newActivityMoreorless" value="more" id="more" name="moreorless">
                 <label for="less">less</label>
@@ -84,12 +83,12 @@
                 <br>
                 <input type="number" ng-model="create.newActivityScale" id="activity_weight" name="activity_weight" min="1" max="10" placeholder="1-10" />
             </div>
-        </div><br>
+        <br>
         <div class="button">
             <button type="button" ng-click="addNewActivity()">Save new activity</button>
         </div>
     </form>
-    <form action="">
+    <form>
         <p class="title">Update Activities</p>
         <ul>
             <div class="items"  ng-repeat="activity in activityList">
@@ -105,13 +104,12 @@
         <p class="title">Points Summary</p>
             <div class="items" ng-repeat="activity in activityList">
                 <p>
-                    {{activity.unit}}:
+                    {{activity.name}}: {{(activity.quantity * activity.howmanyunits) * activity.weight / 10}}
                 </p>
             </div>
-        <p>
-            Daily Value: 1
-        </p>
-
+            <p>
+                Daily Total:
+            </p>
     </form>
 
 </body>

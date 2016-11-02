@@ -19,8 +19,9 @@ form {
 }
 input {
     padding: .5em;
+    border-radius: 1em;
 }
-#activity_weight{
+/*#activity_weight{
     width: 35px;
 }
 #min_qty{
@@ -28,7 +29,21 @@ input {
 }
 #activity_quantity{
     width: 45px;
-}
-textarea {
+}*/
+/*textarea {
     width: 200px;
+}*/
+input[type="text"] {
+    width: 115px;
+}
+input[type="number"] {
+    width: 45px;
+}
+button {
+    width: 150px;
+    padding: .5em;
+    border-radius: 1em;
+    margin: 1em;
+    position: relative;
+    align-self: center;
 }
