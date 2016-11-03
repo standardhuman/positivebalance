@@ -5,14 +5,10 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/styles.css">
-    <!-- <script src="/client.js"></script> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
 
     <script>
         var positiveBalance = angular.module('positiveBalance', [])
-            // removed ;
-            // removed positiveBalance.controller
 
         .controller('ActivityController', function ActivityController($scope) {
             $scope.create = {}
@@ -29,61 +25,46 @@
                 name: 'drink',
                 moreorless: -1,
                 quantity: 1,
-                unit: 'drink',
+                unit: 'drinks',
                 weight: 6,
                 didido: 1,
                 howmanyunits: 0
             }];
 
-            // $scope.dailyTotal = function() {
-            //     var totalPoints = 0;
-            //     for (var i = 0; i < $scope.activityList.length; i++) {
-            //         $scope.activityList[i].points = (($scope.activityList[i].quantity * $scope.activityList[i].howmanyunits) * $scope.activityList[i].weight / 10) * $scope.activityList[i].moreorless;
-            //         totalPoints += $scope.activityList[i].points;
-            //     }
-            //     return totalPoints;
-            // }
             $scope.combinedNum = {};
             $scope.dailyTotal = function() {
-                console.log("inside dailTotal func");
                 var total = 0;
                 for (var i = 0; i < $scope.activityList.length; i++) {
-                    $scope.activityList[i].points = (($scope.activityList[i].quantity * $scope.activityList[i].howmanyunits) * $scope.activityList[i].weight / 10);
-                    console.log("inside loops", $scope.activityList[i].points);
-                    // var points = $scope.activityList[i].points;
+                    $scope.activityList[i].points = (($scope.activityList[i].quantity * $scope.activityList[i].howmanyunits) * $scope.activityList[i].weight / 10) * $scope.activityList[i].moreorless;
                     total += $scope.activityList[i].points;
                 }
                 $scope.combinedNum.total = total;
+
             }
-            $scope.addNewActivity = function(activity) {
-
-                for (var i = 0; i < $scope.activityList.length; i++) {
-                    console.log("$scope.create.newActivityName:", $scope.create.newActivityName);
-                    console.log("$scope.activityList[i].name:", $scope.activityList[i].name);
-                    if ($scope.create.newActivityName === $scope.activityList[i].name) {
-                        $scope.activityList[i].unit = $scope.create.newActivityUnit;
-                        $scope.activityList[i].quantity = $scope.create.newActivityAmount;
-                        $scope.activityList[i].moreorless = $scope.create.newActivityMoreorLess;
-                        $scope.activityList[i].weight = $scope.create.newActivityWeight;
-
-                        console.log("inside if");
-                            // unit: $scope.create.newActivityUnit,
-                            // quantity: $scope.create.newActivityAmount,
-                            // moreorless: $scope.create.newActivityMoreorless,
-                            // weight: $scope.create.newActivityWeight,
-                            // points: 0
-                            return;
-                    } else {
-                        $scope.activityList.push({
-                            name: $scope.create.newActivityName,
-                            unit: $scope.create.newActivityUnit,
-                            quantity: $scope.create.newActivityAmount,
-                            moreorless: $scope.create.newActivityMoreorless,
-                            weight: $scope.create.newActivityWeight,
-                            points: 0
-                        })
-                    }
-                };
+            $scope.addNewActivity = function() {
+                var index = $scope.activityList.findIndex(function(activity) {
+                  return activity.name === $scope.create.newActivityName;
+                });
+                console.log("index:", index);
+                if (index !== -1) {
+                  $scope.activityList[index].unit = $scope.create.newActivityUnit;
+                  $scope.activityList[index].quantity = $scope.create.newActivityAmount;
+                  $scope.activityList[index].moreorless = $scope.create.newActivityMoreorless;
+                  $scope.activityList[index].weight = $scope.create.newActivityWeight;
+                  $scope.activityList[index].points = 0;
+                  $scope.activityList[index].howmanyunits = 0;
+                  console.log("activity List after update", $scope.activityList)
+                } else {
+                  $scope.activityList.push({
+                    name: $scope.create.newActivityName,
+                    unit: $scope.create.newActivityUnit,
+                    quantity: $scope.create.newActivityAmount,
+                    moreorless: $scope.create.newActivityMoreorless,
+                    weight: $scope.create.newActivityWeight,
+                    points: 0,
+                    howmanyunits: 0
+                });
+              }
             }
 
             $scope.convertMoreorLess = function() {
@@ -96,25 +77,11 @@
                 }
                 return $scope.moreorlessModel.moreorless;
             }
-
-            $scope.updateActivity = function(activity) {
-                activity.points = activity.howmanyunits
-                    // console.log("activity.points:", activity.points);
-                    // console.log("activity.howmanyunits:", activity.howmanyunits);
-                    // console.log("$scope.activityList.points:", $scope.activityList.points);
-                    // console.log("$scope.activityList.howmanyunits:", $scope.activityList.howmanyunits);
-                    // console.log("$scope.activityList.name:", $scope.activityList.name);
-                    // console.log($scope.activityList)
-            }
         });
     </script>
 
     <title>Positive Balance</title>
 </head>
-
-<!-- np-app attribute can be in double quotes!  -->
-<!-- can move ng-controller to a big assed div tag -->
-<!-- here was are telling AngularJS what controller to use with this particular view -->
 
 <body ng-app="positiveBalance" ng-controller="ActivityController">
 
@@ -152,16 +119,13 @@
         </div>
     </form>
 
-
     <form>
         <p class="title">Update Activities</p>
         <ul>
             <div class="items" ng-repeat="activity in activityList">
                 <form>
                     <p><label for="activity_quantity">How many times did I {{activity.name}} {{activity.quantity}} {{activity.unit}}?</label></p>
-                    <input ng-model="activity.howmanyunits" type="number" name="number" id="activity_quantity" />
-                    <button type="button" ng-click="dailyTotal()">Update {{activity.unit}}</button>
-
+                    <input ng-model="activity.howmanyunits" type="number" name="number" id="activity_quantity" ng-change="dailyTotal()" />
                 </form>
             </div>
         </ul>
@@ -175,7 +139,6 @@
         </div>
         <p>
             Daily Total: {{combinedNum.total}}
-            <!--this will equal the average of all the activities points  -->
         </p>
     </form>
 
