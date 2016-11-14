@@ -35,7 +35,6 @@
         form.template{
             border: none;
             width: 80%;
-            padding: 0;
         }
 
         label {
@@ -81,38 +80,18 @@
             display: none;
         }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script name="activities_array" type="text/javascript">
         // "database"
-         activities = [
-        //   {
-        //     minQty: 1,
-        //     moreorless: 1,
-        //     name: "run",
-        //     unitName: "mile",
-        //     weight: 6
-        // }
-      ];
+        var activities = [{
+            minQty: 1,
+            moreorless: 1,
+            name: "run",
+            unitName: "mile",
+            weight: 6
+        }];
     </script>
     <script name="new_update_summary_functions">
-
-        // pull in databse, parse and assign to activities
-        function getData(){
-            var url = 'http://localhost:3000/api/activities';
-            var xml = new XMLHttpRequest();
-            xml.onreadystatechange = function(){
-                if(this.readyState == 4 && this.status == 200){
-                    console.log("responseText:", this.responseText);
-                    activities = JSON.parse(this.responseText);
-                    activities = activities.data;
-                }
-            };
-            xml.open('GET', url, true);
-            xml.send();
-        }
-
         // populate Update Section with activity_name, didIdo, howManyUnits and button for each element in activities array
         function updateView() {
             $('#dropDown').empty();
@@ -121,7 +100,7 @@
                     '<form class="template">'+
                     '<div id="' + element.name + '">' +
                     '<span class="dropDown">' +
-                    '<p>' + 'Did I ' + '<span>' + element.name + '</span>' + '?  ' +
+                    '<p>' + 'Did you ' + '<span>' + element.name + '</span>' + '?  ' +
 
                     '<label for="yep">' + 'Yep:' + '</label>' +
                     '<input class="' + element.name + 'yep " type="radio" name="didIDo" id="yep"> ' +
@@ -129,7 +108,7 @@
                     '<input class= "yepnope" type="radio" name="didIDo" id="nope">' + '</p>' +
 
                     '<div class="' + element.name + 'showOnYep ">' +
-                    '<label for="howManyUnits">' + 'How many times did I ' +
+                    '<label for="howManyUnits">' + 'How many times did you ' +
                     element.name + ' ' + element.minQty + ' ' + element.unitName +
                     '?</label>' +
                     '<input id="howManyUnits-' +
@@ -140,8 +119,9 @@
                     '</div>' +
                     '</form>';
 
-                $('#dropDown').append(template);
 
+
+                $('#dropDown').append(template);
                 document.getElementById('howManyUnits-' + element.name).addEventListener('keypress', function(event) {
                     if (event.keyCode == 13) {
                         event.preventDefault();
@@ -163,7 +143,6 @@
 
         // update views on initial page load
         $(document).ready(function() {
-            getData();
             updateView();
             updateSummaryView();
             updateFinalNumView();
@@ -196,6 +175,7 @@
                 }
                 return element;
             })
+            console.log("activities:", activities);
             updateSummaryView();
             updateFinalNumView();
         }
@@ -316,7 +296,7 @@
             </div>
 
             <div class="input">
-                <label for="activity_weight">How important is this to me? (10 is most important)</label>
+                <label for="activity_weight">How important is this to you? (10 is most important)</label>
                 <input type="number" id="activity_weight" name="activity_weight" min="1" max="10" placeholder="1-10" />
             </div>
         </div>
