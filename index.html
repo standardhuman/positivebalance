@@ -43,28 +43,28 @@
             }
             $scope.addNewActivity = function() {
                 var index = $scope.activityList.findIndex(function(activity) {
-                  return activity.name === $scope.create.newActivityName;
+                    return activity.name === $scope.create.newActivityName;
                 });
                 console.log("index:", index);
                 if (index !== -1) {
-                  $scope.activityList[index].unit = $scope.create.newActivityUnit;
-                  $scope.activityList[index].quantity = $scope.create.newActivityAmount;
-                  $scope.activityList[index].moreorless = $scope.create.newActivityMoreorless;
-                  $scope.activityList[index].weight = $scope.create.newActivityWeight;
-                  $scope.activityList[index].points = 0;
-                  $scope.activityList[index].howmanyunits = 0;
-                  console.log("activity List after update", $scope.activityList)
+                    $scope.activityList[index].unit = $scope.create.newActivityUnit;
+                    $scope.activityList[index].quantity = $scope.create.newActivityAmount;
+                    $scope.activityList[index].moreorless = $scope.create.newActivityMoreorless;
+                    $scope.activityList[index].weight = $scope.create.newActivityWeight;
+                    $scope.activityList[index].points = 0;
+                    $scope.activityList[index].howmanyunits = 0;
+                    console.log("activity List after update", $scope.activityList)
                 } else {
-                  $scope.activityList.push({
-                    name: $scope.create.newActivityName,
-                    unit: $scope.create.newActivityUnit,
-                    quantity: $scope.create.newActivityAmount,
-                    moreorless: $scope.create.newActivityMoreorless,
-                    weight: $scope.create.newActivityWeight,
-                    points: 0,
-                    howmanyunits: 0
-                });
-              }
+                    $scope.activityList.push({
+                        name: $scope.create.newActivityName,
+                        unit: $scope.create.newActivityUnit,
+                        quantity: $scope.create.newActivityAmount,
+                        moreorless: $scope.create.newActivityMoreorless,
+                        weight: $scope.create.newActivityWeight,
+                        points: 0,
+                        howmanyunits: 0
+                    });
+                }
             }
 
             $scope.convertMoreorLess = function() {
