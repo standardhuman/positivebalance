@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<!--moved ng-app to body tag, go go in either place. It points to the part of the html that contains the angular app  -->
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
+    <script>
+        var positiveBalance = angular.module('positiveBalance', [])
+
+        .controller('ActivityController', function ActivityController($scope) {
+            $scope.create = {}
+
+            $scope.activityList = [{
+                name: 'run',
+                moreorless: 1,
+                quantity: 1,
+                unit: 'mile',
+                weight: 5,
+                didido: 1,
+                howmanyunits: 0
+            }, {
+                name: 'drink',
+                moreorless: -1,
+                quantity: 1,
+                unit: 'drinks',
+                weight: 6,
+                didido: 1,
+                howmanyunits: 0
+            }];
+
+            $scope.combinedNum = {};
+            $scope.dailyTotal = function() {
+                var total = 0;
+                for (var i = 0; i < $scope.activityList.length; i++) {
+                    $scope.activityList[i].points = (($scope.activityList[i].quantity * $scope.activityList[i].howmanyunits) * $scope.activityList[i].weight / 10) * $scope.activityList[i].moreorless;
+                    total += $scope.activityList[i].points;
+                }
+                $scope.combinedNum.total = total;
+
+            }
+            $scope.addNewActivity = function() {
+                var index = $scope.activityList.findIndex(function(activity) {
+                  return activity.name === $scope.create.newActivityName;
+                });
+                console.log("index:", index);
+                if (index !== -1) {
+                  $scope.activityList[index].unit = $scope.create.newActivityUnit;
+                  $scope.activityList[index].quantity = $scope.create.newActivityAmount;
+                  $scope.activityList[index].moreorless = $scope.create.newActivityMoreorless;
+                  $scope.activityList[index].weight = $scope.create.newActivityWeight;
+                  $scope.activityList[index].points = 0;
+                  $scope.activityList[index].howmanyunits = 0;
+                  console.log("activity List after update", $scope.activityList)
+                } else {
+                  $scope.activityList.push({
+                    name: $scope.create.newActivityName,
+                    unit: $scope.create.newActivityUnit,
+                    quantity: $scope.create.newActivityAmount,
+                    moreorless: $scope.create.newActivityMoreorless,
+                    weight: $scope.create.newActivityWeight,
+                    points: 0,
+                    howmanyunits: 0
+                });
+              }
+            }
+
+            $scope.convertMoreorLess = function() {
+                $scope.moreorlessModel = {};
+                console.log($scope.create.newActivityMoreorless);
+                if ($scope.create.newActivityMoreorless == 1) {
+                    $scope.moreorlessModel.moreorless = "more";
+                } else {
+                    $scope.moreorlessModel.moreorless = "less";
+                }
+                return $scope.moreorlessModel.moreorless;
+            }
+        });
+    </script>
+
+    <title>Positive Balance</title>
+</head>
+
+<body ng-app="positiveBalance" ng-controller="ActivityController">
+
+    <form id="newActivity">
+        <p class="title">Create new activity</p>
+
+        <div class="inputs">
+            <p>I would like to
+                <label for="activityName"></label>
+                <input type="text" ng-model="create.newActivityName" id="activity_name" name="activity_name" placeholder="run, drink, meditate..." />
+                <label for="more">more</label>
+                <input type="radio" ng-model="create.newActivityMoreorless" value="1" id="more" name="moreorless" ng-onclick="convertMoreorLess()">
+                <label for="less">less</label>
+                <input type="radio" ng-model="create.newActivityMoreorless" value="-1" id="less" name="moreorless" ng-onclick="convertMoreorLess()">.
+            </p>
+        </div>
+        <div class="inputs">
+            <p>
+                <label for="activity_unit">
+                    {{'When I do ' + create.newActivityName +', the smallest amount I might ' + create.newActivityName + ' is'}}
+                </label>
+                <label for="min_qty"></label>
+                <input type="number" ng-model="create.newActivityAmount" id="min_qty" name="min_qty" placeholder="1, 2..." />
+                <input type="text" ng-model="create.newActivityUnit" id="activity_unit" name="activity_unit" placeholder="miles, drink, minutes..." />
+            </p>
+        </div>
+        <div class="inputs">
+            <label for="activity_weight">On a scale of 1-10, with 10 being most important, how important is it to me that I {{create.newActivityName}} {{convertMoreorLess()}}?</label>
+            <br>
+            <input type="number" ng-model="create.newActivityWeight" id="activity_weight" name="activity_weight" min="1" max="10" placeholder="1-10" />
+        </div>
+        <br>
+        <div class="button">
+            <button type="button" ng-click="addNewActivity()">Save new activity</button>
+        </div>
+    </form>
+
+    <form>
+        <p class="title">Update Activities</p>
+        <ul>
+            <div class="items" ng-repeat="activity in activityList">
+                <form>
+                    <p><label for="activity_quantity">How many times did I {{activity.name}} {{activity.quantity}} {{activity.unit}}?</label></p>
+                    <input ng-model="activity.howmanyunits" type="number" name="number" id="activity_quantity" ng-change="dailyTotal()" />
+                </form>
+            </div>
+        </ul>
+    </form>
+    <form action="">
+        <p class="title">Points Summary</p>
+        <div class="items" ng-repeat="activity in activityList">
+            <p>
+                {{activity.name}}: <span>{{((activity.quantity * activity.howmanyunits) * activity.weight / 10) * activity.moreorless}}</span>
+            </p>
+        </div>
+        <p>
+            Daily Total: {{combinedNum.total}}
+        </p>
+    </form>
+
+</body>
+
+</html>
