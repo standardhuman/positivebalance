@@ -4,9 +4,9 @@
   "description": "Positive Balance - React Edition",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src -d lib"
-  },
+   "dev": "webpack -d --watch",
+   "build" : "webpack -p"
+ },
   "author": "",
   "license": "ISC",
   "dependencies": {
