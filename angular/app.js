@@ -1,6 +1,5 @@
 var positiveBalance = angular.module('positiveBalance', []).controller('ActivityController', function ActivityController($scope) {
     $scope.create = {}
-
     $scope.activityList = [
         {
             name: 'run',
@@ -20,7 +19,6 @@ var positiveBalance = angular.module('positiveBalance', []).controller('Activity
             howmanyunits: 0
         }
     ];
-
     $scope.combinedNum = {};
     $scope.dailyTotal = function() {
         var total = 0;
@@ -29,13 +27,11 @@ var positiveBalance = angular.module('positiveBalance', []).controller('Activity
             total += $scope.activityList[i].points;
         }
         $scope.combinedNum.total = total;
-
     }
     $scope.addNewActivity = function() {
         var index = $scope.activityList.findIndex(function(activity) {
             return activity.name === $scope.create.newActivityName;
         });
-        console.log("index:", index);
         if (index !== -1) {
             $scope.activityList[index].unit = $scope.create.newActivityUnit;
             $scope.activityList[index].quantity = $scope.create.newActivityAmount;
@@ -43,7 +39,6 @@ var positiveBalance = angular.module('positiveBalance', []).controller('Activity
             $scope.activityList[index].weight = $scope.create.newActivityWeight;
             $scope.activityList[index].points = 0;
             $scope.activityList[index].howmanyunits = 0;
-            console.log("activity List after update", $scope.activityList)
         } else {
             $scope.activityList.push({
                 name: $scope.create.newActivityName,
@@ -56,10 +51,8 @@ var positiveBalance = angular.module('positiveBalance', []).controller('Activity
             });
         }
     }
-
     $scope.convertMoreorLess = function() {
         $scope.moreorlessModel = {};
-        console.log($scope.create.newActivityMoreorless);
         if ($scope.create.newActivityMoreorless == 1) {
             $scope.moreorlessModel.moreorless = "more";
         } else {
