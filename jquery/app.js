@@ -11,12 +11,12 @@ var activities = [
 
 // populate Update Section with activity_name, didIdo, howManyUnits and button for each element in activities array
 function updateView() {
-    $('#dropDown').empty();
+    $('#items').empty();
     activities.forEach(function(element) {
         var template = '<form class="template">' +
-        '<div id="' + element.name + '">' + '<span class="dropDown">' + '<p>' + 'Did you ' + '<span>' + element.name + '</span>' + '?  ' + '<label for="yep">' + 'Yep:' + '</label>' + '<input class="' + element.name + 'yep " type="radio" name="didIDo" id="yep"> ' + '<label for="nope">' + 'Nope:' + '</label>' + '<input class= "yepnope" type="radio" name="didIDo" id="nope">' + '</p>' + '<div class="' + element.name + 'showOnYep ">' + '<label for="howManyUnits">' + 'How many times did you ' + element.name + ' ' + element.minQty + ' ' + element.unitName + '?</label>' + '<input id="howManyUnits-' + element.name + '" type="number" class="howManyUnits" name="howManyUnits" placeholder="1, 10..." />' + '<button type="button" name="button" onclick="updateActivity(' + element.name + ')">' + 'Update ' + element.name + '</button>' + '</span>' + '</div>' + '</div>' + '</form>';
+        '<div id="' + element.name + '">' + '<span class="items">' + '<p>' + 'Did you ' + '<span>' + element.name + '</span>' + '?  ' + '<label for="yep">' + 'Yep:' + '</label>' + '<input class="' + element.name + 'yep " type="radio" name="didIDo" id="yep"> ' + '<label for="nope">' + 'Nope:' + '</label>' + '<input class= "yepnope" type="radio" name="didIDo" id="nope">' + '</p>' + '<div class="' + element.name + 'showOnYep ">' + '<label for="howManyUnits">' + 'How many times did you ' + element.name + ' ' + element.minQty + ' ' + element.unitName + '?</label> ' + ' <input id="howManyUnits-' + element.name + '" type="number" class="howManyUnits" name="howManyUnits" placeholder="1, 10..." />' + '<button type="button" name="button" onclick="updateActivity(' + element.name + ')">' + 'Update ' + element.name + '</button>' + '</span>' + '</div>' + '</div>' + '</form>';
 
-        $('#dropDown').append(template);
+        $('#items').append(template);
         document.getElementById('howManyUnits-' + element.name).addEventListener('keypress', function(event) {
             if (event.keyCode == 13) {
                 event.preventDefault();
@@ -100,7 +100,7 @@ function createNew() {
 
     if (potentialElement.length === 0) {
         activities.push(actConst);
-        // $('#dropDown').append(template);
+        // $('#items').append(template);
         // console.log("After push(createNew):", activities);
         return;
     } else {

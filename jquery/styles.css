@@ -17,6 +17,9 @@ form {
     border: 1px solid #CCC;
     border-radius: 1em;
 }
+form.template {
+ border: none;
+}
 input {
     padding: .5em;
     border-radius: 1em;
