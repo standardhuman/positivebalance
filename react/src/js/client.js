@@ -62,23 +62,27 @@ class UpdateActivity extends React.Component {
         return (
             <div>
                 <h1>Update Activity</h1>
-                <UpdateEachActivity />
+                <UpdateEachActivity/>
             </div>
         )
     }
 }
 
 class UpdateEachActivity extends React.Component {
-  render(){
-    return (
-      <div>
-        <form>
-            <p><label for="activity_quantity">How many times did I {this.props.activities.name} {this.props.activities.quantity} {this.props.activities.unit}?</label></p>
-            <input type="number" name="number" id="activity_quantity" />
-        </form>
-      </div>
-    )
-  }
+    render() {
+        return (
+            <div>
+                <form>
+                    <p>
+                        <label for="activity_quantity">How many times did I {this.props.activities.name}
+                            {this.props.activities.quantity}
+                            {this.props.activities.unit}?</label>
+                    </p>
+                    <input type="number" name="number" id="activity_quantity"/>
+                </form>
+            </div>
+        )
+    }
 }
 
 class ActivitySummary extends React.Component {
@@ -96,6 +100,7 @@ class PointsSummary extends React.Component {
         return (
             <div>
                 <h1>Points Summary</h1>
+                <h1>{this.state}</h1>
             </div>
         )
     }
@@ -140,4 +145,4 @@ class PositiveBalance extends React.Component {
 }
 
 ReactDOM.render(
-    <PositiveBalance/>, document.getElementById('container'))
+    <PositiveBalance />, document.getElementById('app'))
