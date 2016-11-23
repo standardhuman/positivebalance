@@ -62,9 +62,23 @@ class UpdateActivity extends React.Component {
         return (
             <div>
                 <h1>Update Activity</h1>
+                <UpdateEachActivity />
             </div>
         )
     }
+}
+
+class UpdateEachActivity extends React.Component {
+  render(){
+    return (
+      <div>
+        <form>
+            <p><label for="activity_quantity">How many times did I {this.props.activities.name} {this.props.activities.quantity} {this.props.activities.unit}?</label></p>
+            <input type="number" name="number" id="activity_quantity" />
+        </form>
+      </div>
+    )
+  }
 }
 
 class ActivitySummary extends React.Component {
@@ -90,26 +104,27 @@ class PointsSummary extends React.Component {
 class PositiveBalance extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {ACTIVITIES: [
-            {
-                name: 'run',
-                moreorless: 1,
-                quantity: 1,
-                unit: 'mile',
-                weight: 5,
-                didido: 1,
-                howmanyunits: 0
-            }, {
-                name: 'drink',
-                moreorless: -1,
-                quantity: 1,
-                unit: 'drinks',
-                weight: 6,
-                didido: 1,
-                howmanyunits: 0
-            }
-        ]
-    }
+        this.state = {
+            ACTIVITIES: [
+                {
+                    name: 'run',
+                    moreorless: 1,
+                    quantity: 1,
+                    unit: 'mile',
+                    weight: 5,
+                    didido: 1,
+                    howmanyunits: 0
+                }, {
+                    name: 'drink',
+                    moreorless: -1,
+                    quantity: 1,
+                    unit: 'drinks',
+                    weight: 6,
+                    didido: 1,
+                    howmanyunits: 0
+                }
+            ]
+        }
     }
 
     render() {
