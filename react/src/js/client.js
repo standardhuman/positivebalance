@@ -1,16 +1,40 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class CreateNewActivity extends React.Component {
+class NewUpdateActivity extends React.Component{
+  constructor(props) {
+    super(props)
+  }
+  update(){
+    const theVal = this.refs.myInput.value
+    this.props.updateState(theVal)
+  }
   render(){
-      var things = this.props.activities;
-    // all js logic
-    // props are accessed as: this.props.name
     return (
       <div>
-        {things}
+        <p>How many times did you {this.props.activity.name} {this.props.activity.quantity} {this.props.activity.unit} ?</p>
+        <form>
+          <input type="text" id="input1" ref="myInput"></input>
+          <input type="button" onClick={this.update.bind(this)}></input>
+        </form>
       </div>
-      // only html(jsx) and var names
+    )
+  }
+}
+
+class UpdateActivitySection extends React.Component {
+  render(){
+    const model =  [];
+    const updateState = this.props.updateState
+    this.props.activities.forEach(function(activity){
+        model.push(
+          <NewUpdateActivity activity = {activity} updateState = {updateState} />
+        )
+      })
+    return (
+      <div>
+        {model}
+      </div>
     )
   }
 }
@@ -18,20 +42,22 @@ class CreateNewActivity extends React.Component {
 class PositiveBalance extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {
-
-      };
+      this.state = {data: ""};
+  }
+  updateState(val){
+    this.setState({data: val})
+    console.log(this.state.data);
   }
     render() {
         return (
             <div>
-                <CreateNewActivity activities={this.props.activities}/>
+                <UpdateActivitySection activities={this.props.activities} updateState={this.updateState.bind(this)} />
             </div>
         )
     }
 }
 
-const ACTIVITIES = [
+var ACTIVITIES = [
     {
         name: 'run',
         moreorless: 1,
