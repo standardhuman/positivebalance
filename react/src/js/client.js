@@ -26,9 +26,11 @@ class UpdateActivitySection extends React.Component {
   render(){
     const model =  [];
     const updateState = this.props.updateState
+    console.log("state:", this.state);
+    console.log("props:", this.props);
     this.props.activities.forEach(function(activity){
         model.push(
-          <NewUpdateActivity activity = {activity} updateState = {updateState} />
+          <NewUpdateActivity activity={activity} updateState={updateState} />
         )
       })
     return (
@@ -42,40 +44,40 @@ class UpdateActivitySection extends React.Component {
 class PositiveBalance extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {data: ""};
+      this.state = {
+        activities: [
+          {
+              name: 'run',
+              moreorless: 1,
+              quantity: 1,
+              unit: 'mile',
+              weight: 5,
+              didido: 1,
+              howmanyunits: 0
+          }, {
+              name: 'drink',
+              moreorless: -1,
+              quantity: 1,
+              unit: 'drinks',
+              weight: 6,
+              didido: 1,
+              howmanyunits: 0
+          }
+      ]};
   }
   updateState(val){
     this.setState({data: val})
-    console.log(this.state.data);
+    console.log(this.state.data)
   }
     render() {
+      console.log("this.state.activities:", this.state.activities);
         return (
             <div>
-                <UpdateActivitySection activities={this.props.activities} updateState={this.updateState.bind(this)} />
+                <UpdateActivitySection activities={this.state.activities} updateState={this.updateState.bind(this)}/>
             </div>
         )
     }
 }
 
-var ACTIVITIES = [
-    {
-        name: 'run',
-        moreorless: 1,
-        quantity: 1,
-        unit: 'mile',
-        weight: 5,
-        didido: 1,
-        howmanyunits: 0
-    }, {
-        name: 'drink',
-        moreorless: -1,
-        quantity: 1,
-        unit: 'drinks',
-        weight: 6,
-        didido: 1,
-        howmanyunits: 0
-    }
-]
-
 ReactDOM.render(
-    <PositiveBalance activities={ACTIVITIES}/>, document.getElementById('app'));
+    <PositiveBalance />, document.getElementById('app'));
