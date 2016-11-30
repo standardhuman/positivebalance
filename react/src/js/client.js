@@ -1,6 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+import allReducers from './reducers'
+import ActivityList from './containers/activity-list'
 
+const store = createStore(allReducers);
+
+// render instance of new activity
 class NewUpdateActivity extends React.Component{
   constructor(props) {
     super(props)
@@ -22,6 +29,7 @@ class NewUpdateActivity extends React.Component{
   }
 }
 
+// create state for each new activity
 class UpdateActivitySection extends React.Component {
   render(){
     const model =  [];
@@ -41,7 +49,26 @@ class UpdateActivitySection extends React.Component {
   }
 }
 
+class Comment extends React.Component {
+  render() {
+    function edit(){
+      alert("You changed it)")
+    }
+    function remove(){
+      alert("Now you've done it :()")
+    }
+    return(
+      <div className="commentContainer">
+        <div className="commentText">All existing activities</div>
+        <button onClick={this.edit} className="button-primary">Update</button>
+        <button onClick={this.remove} className="button-danger">Remove</button>
+      </div>
+    )
+  }
+}
+
 class PositiveBalance extends React.Component {
+
   constructor(props) {
       super(props);
       this.state = {
@@ -63,21 +90,29 @@ class PositiveBalance extends React.Component {
               didido: 1,
               howmanyunits: 0
           }
-      ]};
+       ]
+     }
   }
+
   updateState(val){
     this.setState({data: val})
-    console.log(this.state.data)
   }
-    render() {
-      console.log("this.state.activities:", this.state.activities);
+
+  render() {
         return (
             <div>
-                <UpdateActivitySection activities={this.state.activities} updateState={this.updateState.bind(this)}/>
+              <ActivityList />
+              <Comment className="board">Hey now</Comment>
             </div>
         )
     }
 }
 
 ReactDOM.render(
-    <PositiveBalance />, document.getElementById('app'));
+  <Provider store={store}>
+    <PositiveBalance />
+  </Provider>,
+  document.getElementById('app'));
+
+export default PositiveBalance
+{/* <UpdateActivitySection activities={this.state.activities} updateState={this.updateState.bind(this)}/> */}
