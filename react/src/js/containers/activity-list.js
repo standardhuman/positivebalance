@@ -3,12 +3,17 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 class ActivityList extends Component{
+createActivityListItems(){
+    return this.props.activities.map((activity) => {
+      return (
+        <li key={activity.name}>{activity.name}</li>
+      )
+    })
+  }
   render(){
     return(
       <ul>
-        <li>{this.props.activities}</li>
-        <li>two</li>
-        <li>three</li>
+      {this.createActivityListItems()}
       </ul>
     )
   }
@@ -20,4 +25,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps)(ActivityList);
+export default connect(mapStateToProps) (ActivityList);

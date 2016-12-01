@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
-import allReducers from './reducers'
-import ActivityList from './containers/activity-list'
+import allReducers from './reducers';
+import ActivityList from './containers/activity-list';
 
 const store = createStore(allReducers);
 
@@ -34,8 +34,6 @@ class UpdateActivitySection extends React.Component {
   render(){
     const model =  [];
     const updateState = this.props.updateState
-    console.log("state:", this.state);
-    console.log("props:", this.props);
     this.props.activities.forEach(function(activity){
         model.push(
           <NewUpdateActivity activity={activity} updateState={updateState} />
