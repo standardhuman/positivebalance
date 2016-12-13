@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 class NewUpdateActivity extends React.Component{
   constructor(props) {
-    super(props)
+    super(props);
   }
   update(){
     const theVal = this.refs.myInput.value
@@ -44,36 +44,52 @@ class UpdateActivitySection extends React.Component {
 class PositiveBalance extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {
-        activities: [
-          {
-              name: 'run',
-              moreorless: 1,
-              quantity: 1,
-              unit: 'mile',
-              weight: 5,
-              didido: 1,
-              howmanyunits: 0
-          }, {
-              name: 'drink',
-              moreorless: -1,
-              quantity: 1,
-              unit: 'drinks',
-              weight: 6,
-              didido: 1,
-              howmanyunits: 0
-          }
-      ]};
+      // this.setState = this.setState.bind(this);
+      this.state = {};
+      // this.state = {
+      //   activities: [
+      //     {
+      //         name: 'run',
+      //         moreorless: 1,
+      //         quantity: 1,
+      //         unit: 'mile',
+      //         weight: 5,
+      //         didido: 1,
+      //         howmanyunits: 0
+      //     }, {
+      //         name: 'drink',
+      //         moreorless: -1,
+      //         quantity: 1,
+      //         unit: 'drinks',
+      //         weight: 6,
+      //         didido: 1,
+      //         howmanyunits: 0
+      //     }
+      // ]};
   }
   updateState(val){
     this.setState({data: val})
     console.log(this.state.data)
   }
+
+  componentDidMount() {
+    fetch('http://localhost:3000/', {
+  	method: 'get'
+  }).then((response) => {
+    response.json().then((message) => {
+      this.setState({res: message.data})
+    })
+  }).catch(function(err) {
+  	// Error :(
+  });
+  }
     render() {
       console.log("this.state.activities:", this.state.activities);
         return (
             <div>
-                <UpdateActivitySection activities={this.state.activities} updateState={this.updateState.bind(this)}/>
+                {/* <UpdateActivitySection activities={this.state.activities} updateState={this.updateState.bind(this)}/> */}
+                "Hello"
+                {this.state.res}
             </div>
         )
     }
