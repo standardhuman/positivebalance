@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// render instance of new activity
 class NewUpdateActivity extends React.Component{
   constructor(props) {
     super(props);
@@ -22,12 +23,11 @@ class NewUpdateActivity extends React.Component{
   }
 }
 
+// create state for each new activity
 class UpdateActivitySection extends React.Component {
   render(){
     const model =  [];
     const updateState = this.props.updateState
-    console.log("state:", this.state);
-    console.log("props:", this.props);
     this.props.activities.forEach(function(activity){
         model.push(
           <NewUpdateActivity activity={activity} updateState={updateState} />
@@ -44,32 +44,32 @@ class UpdateActivitySection extends React.Component {
 class PositiveBalance extends React.Component {
   constructor(props) {
       super(props);
-      // this.setState = this.setState.bind(this);
       this.state = {};
-      // this.state = {
-      //   activities: [
-      //     {
-      //         name: 'run',
-      //         moreorless: 1,
-      //         quantity: 1,
-      //         unit: 'mile',
-      //         weight: 5,
-      //         didido: 1,
-      //         howmanyunits: 0
-      //     }, {
-      //         name: 'drink',
-      //         moreorless: -1,
-      //         quantity: 1,
-      //         unit: 'drinks',
-      //         weight: 6,
-      //         didido: 1,
-      //         howmanyunits: 0
-      //     }
-      // ]};
+    //   this.state = {
+    //     activities: [
+    //       {
+    //           name: 'run',
+    //           moreorless: 1,
+    //           quantity: 1,
+    //           unit: 'mile',
+    //           weight: 5,
+    //           didido: 1,
+    //           howmanyunits: 0
+    //       }, {
+    //           name: 'drink',
+    //           moreorless: -1,
+    //           quantity: 1,
+    //           unit: 'drinks',
+    //           weight: 6,
+    //           didido: 1,
+    //           howmanyunits: 0
+    //       }
+    //    ]
+    //  }
   }
+
   updateState(val){
     this.setState({data: val})
-    console.log(this.state.data)
   }
 
   componentDidMount() {
@@ -95,5 +95,7 @@ class PositiveBalance extends React.Component {
     }
 }
 
+
 ReactDOM.render(
-    <PositiveBalance />, document.getElementById('app'));
+    <PositiveBalance />,
+  document.getElementById('app'));

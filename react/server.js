@@ -6,6 +6,7 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
 const model = {data: "hello"}
 app.get('/', function (req, res) {
   res.send(model)
