@@ -66,45 +66,61 @@ class Comment extends React.Component {
 }
 
 class PositiveBalance extends React.Component {
-
   constructor(props) {
       super(props);
-      this.state = {
-        activities: [
-          {
-              name: 'run',
-              moreorless: 1,
-              quantity: 1,
-              unit: 'mile',
-              weight: 5,
-              didido: 1,
-              howmanyunits: 0
-          }, {
-              name: 'drink',
-              moreorless: -1,
-              quantity: 1,
-              unit: 'drinks',
-              weight: 6,
-              didido: 1,
-              howmanyunits: 0
-          }
-       ]
-     }
+      this.state = {};
+    //   this.state = {
+    //     activities: [
+    //       {
+    //           name: 'run',
+    //           moreorless: 1,
+    //           quantity: 1,
+    //           unit: 'mile',
+    //           weight: 5,
+    //           didido: 1,
+    //           howmanyunits: 0
+    //       }, {
+    //           name: 'drink',
+    //           moreorless: -1,
+    //           quantity: 1,
+    //           unit: 'drinks',
+    //           weight: 6,
+    //           didido: 1,
+    //           howmanyunits: 0
+    //       }
+    //    ]
+    //  }
   }
+
+componentDidMount(){
+  var foo = "a string";
+  console.log(this);
+  fetch('http://localhost:3000', {
+    method: 'get'
+  }).then(response => {
+    this.setState({response});
+  }).catch(function(err) {
+    // Error :(
+  });
+}
 
   updateState(val){
     this.setState({data: val})
   }
-
   render() {
         return (
             <div>
               <ActivityList />
-              <Comment className="board">Hey now</Comment>
+              <p>
+                {this.state.response}
+                SOme stuff
+              </p>
+              <Comment className="board"></Comment>
             </div>
         )
     }
 }
+
 
 ReactDOM.render(
   <Provider store={store}>
