@@ -7,7 +7,27 @@ app.use(function(req, res, next) {
   next();
 });
 
-const model = {data: "hello"}
+const model = {
+  activities: [
+    {
+        name: 'run',
+        moreorless: 1,
+        quantity: 1,
+        unit: 'mile',
+        weight: 5,
+        didido: 1,
+        howmanyunits: 0
+    }, {
+        name: 'drink',
+        moreorless: -1,
+        quantity: 1,
+        unit: 'drinks',
+        weight: 6,
+        didido: 1,
+        howmanyunits: 0
+    }
+  ]  
+}
 app.get('/', function (req, res) {
   res.send(model)
 })

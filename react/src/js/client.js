@@ -7,8 +7,9 @@ class NewUpdateActivity extends React.Component{
     super(props);
   }
   update(){
-    const theVal = this.refs.myInput.value
-    this.props.updateState(theVal)
+    const theVal = this.refs.myInput.value;
+    const actName = this.props.activity.name;
+    this.props.updateState(theVal, actName)
   }
   render(){
     return (
@@ -44,7 +45,7 @@ class UpdateActivitySection extends React.Component {
 class PositiveBalance extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {};
+      this.state = {activities: []};
     //   this.state = {
     //     activities: [
     //       {
@@ -68,30 +69,42 @@ class PositiveBalance extends React.Component {
     //  }
   }
 
-  updateState(val){
-    this.setState({data: val})
+  updateState(val, actName){
+    //logic for selecting the right spot in the activity array here
+    console.log(val, actName)
+    let state = {};
+    state[this.state.activities[0].howmanyunits = val]
+    this.setState(state)
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/', {
+    fetch('http://localhost:3000/api/activities', {
   	method: 'get'
   }).then((response) => {
     response.json().then((message) => {
-      this.setState({res: message.data})
+      this.setState({activities: message.data})
     })
   }).catch(function(err) {
   	// Error :(
   });
   }
     render() {
-      console.log("this.state.activities:", this.state.activities);
+      console.log("this.state.activities", this.state.activities);
+      if (this.state.activities.length > 0) {
         return (
+
             <div>
-                {/* <UpdateActivitySection activities={this.state.activities} updateState={this.updateState.bind(this)}/> */}
-                "Hello"
-                {this.state.res}
+                <UpdateActivitySection activities={this.state.activities} updateState={this.updateState.bind(this)}/>
+                {/* "Hello" */}
+                {/* {this.state.activities[1].name} */}
             </div>
         )
+      }
+      else {
+        return (
+          <div><p>"loading"</p></div>
+        )
+      }
     }
 }
 
