@@ -77,6 +77,7 @@ class PositiveBalance extends React.Component {
     this.setState(state)
   }
 
+
   componentDidMount() {
     fetch('http://localhost:3000/api/activities', {
   	method: 'get'
