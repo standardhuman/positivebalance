@@ -9,7 +9,7 @@ export default class NewUpdateActivity extends React.Component{
     // console.log("Inside update");
     const theVal = this.refs.myInput.value;
     const actName = this.props.activity.name;
-    this.props.updateState(theVal, actName)
+    this.props.updateHowMany(theVal, actName)
   }
   render(){
     return (

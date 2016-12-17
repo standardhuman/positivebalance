@@ -1,34 +1,6 @@
 import React from "react";
 import UpdateActivitySection from "./updateactivitysection";
-
-class CreateActivity extends React.component {
-
-  createNew(){
-    const name = this.refs.name.value;
-    const moreorless = this.refs.moreorless.value;
-    const qty = this.refs.qty.value;
-    const unit = this.refs.unit.value;
-    const weight = this.refs.weight.value;
-
-    this.props.updateState(name, moreorless, qty, unit, weight)
-  }
-
-  render () {
-    return (
-      <div>
-        <form onSubmit>
-          <input ref="name" type="text" />
-          <input ref="moreorless" type="text" />
-          <input ref="qty" type="text" />
-          <input ref="unit" type="text" />
-          <input ref="weight" type="text" />
-        </form>
-      </div>
-    )
-  }
-}
-
-
+import CreateActivity from "./createactivity";
 // source of state
 // has functionality to catch state updates in children
 export default class ActivityCRUD extends React.Component {
@@ -37,7 +9,7 @@ export default class ActivityCRUD extends React.Component {
       this.state = {activities: []};
   }
 
-  updateState(val, actName){
+  updateHowMany(val, actName){
     //logic for selecting the right spot in the activity array here
     for(var i = 0; i < this.state.activities.length; i++){
       if(this.state.activities[i].name === actName){
@@ -64,7 +36,8 @@ export default class ActivityCRUD extends React.Component {
       if (this.state.activities.length > 0) {
         return (
           <div>
-            <UpdateActivitySection activities={this.state.activities} updateState={this.updateState.bind(this)}/>
+            <CreateActivity />
+            <UpdateActivitySection activities={this.state.activities} updateHowMany={this.updateHowMany.bind(this)}/>
             </div>
         )
       } else {

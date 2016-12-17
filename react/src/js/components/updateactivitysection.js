@@ -6,10 +6,10 @@ export default class UpdateActivitySection extends React.Component {
 
   render(){
     const model =  [];
-    const updateState = this.props.updateState
+    const updateHowMany = this.props.updateHowMany
     this.props.activities.forEach(function(activity){
         model.push(
-          <NewUpdateActivity activity={activity} updateState={updateState} />
+          <NewUpdateActivity activity={activity} updateHowMany={updateHowMany} />
         )
       })
     return (
