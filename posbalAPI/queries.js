@@ -6,7 +6,12 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgresql://localhost:5432/activities';
+var connectionString = {
+   host: 'localhost',
+   port: 5432,
+   database: 'activities'
+};
+
 var db = pgp(connectionString);
 
 // add query functions

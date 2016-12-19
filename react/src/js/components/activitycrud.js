@@ -1,6 +1,8 @@
 import React from "react";
 import UpdateActivitySection from "./updateactivitysection";
 import CreateActivity from "./createactivity";
+import Summary from "./summary"
+
 // source of state
 // has functionality to catch state updates in children
 export default class ActivityCRUD extends React.Component {
@@ -22,6 +24,23 @@ export default class ActivityCRUD extends React.Component {
     }
   }
 
+  createAndAddActivity(name, moreorless, qty, unit, weight){
+
+    let newObject = {
+      name: name,
+      moreorless: moreorless,
+      qty: qty,
+      unit: unit,
+      weight: weight,
+      didido: "",
+      howmanyunits: ""
+    }
+    let newArray  = this.state.activities.slice()
+    newArray.push(newObject)
+    this.setState({activities: newArray})
+
+  }
+
   componentDidMount() {
     fetch('http://localhost:3000/api/activities', {
   	method: 'get'
@@ -36,8 +55,10 @@ export default class ActivityCRUD extends React.Component {
       if (this.state.activities.length > 0) {
         return (
           <div>
-            <CreateActivity />
+            <CreateActivity createAndAddActivity={this.createAndAddActivity.bind(this)}/>
+
             <UpdateActivitySection activities={this.state.activities} updateHowMany={this.updateHowMany.bind(this)}/>
+            <Summary activities={this.state.activities} />
             </div>
         )
       } else {

@@ -6,13 +6,13 @@ CREATE DATABASE activities;
 CREATE TABLE activitytable (
   name VARCHAR,
   moreorless INTEGER,
-  quantity INTEGER,
+  qty INTEGER,
   unit VARCHAR,
   weight INTEGER,
   didido INTEGER,
   howmanyunits INTEGER
 );
 
-INSERT INTO activitytable (name, moreorless, quantity, unit, weight, didido, howmanyunits) VALUES
+INSERT INTO activitytable (name, moreorless, qty, unit, weight, didido, howmanyunits) VALUES
   ('run', 1, 1, 'mile', 5, 1, 0),
   ('drink', -1, 1, 'drinks', 6, 1, 0);
