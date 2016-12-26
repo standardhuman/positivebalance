@@ -8,8 +8,7 @@ export default class EachActivitySummary extends React.Component {
     console.log("summaryValue:", summaryValue);
     return (
       <div>
-        {this.props.activity.name}
-        {this.summaryValue}
+        {summaryValue}
       </div>
     )
   }

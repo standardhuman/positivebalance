@@ -10,9 +10,9 @@ export default class CreateActivity extends React.Component {
   createNew(){
     const name = this.refs.name.value;
     const moreorless = this.refs.moreorless.value;
-    const qty = this.refs.qty.value;
+    const qty = parseInt(this.refs.qty.value);
     const unit = this.refs.unit.value;
-    const weight = this.refs.weight.value;
+    const weight = parseInt(this.refs.weight.value);
 
     console.log(name);
     console.log(moreorless);

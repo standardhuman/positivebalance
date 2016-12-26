@@ -7,6 +7,8 @@ var options = {
 
 var pgp = require('pg-promise')(options);
 var connectionString = {
+   user: 'postgres',
+   password: 'nodalpass',
    host: 'localhost',
    port: 5432,
    database: 'activities'
