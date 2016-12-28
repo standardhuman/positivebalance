@@ -46,21 +46,31 @@ export default class CreateActivity extends React.Component {
     return (
       <div>
         <form>
-          <p>I would like to
-          <input ref="name" type="text" onBlur={this.formfiller.bind(this)} />
-          <label>
-            more
-              <input ref="moreorless" name="moreorless" type="radio" value="more" checked={this.state.selectedOption === "more"} onChange={this.handleOptionChange.bind(this)} />
-          </label>
-        <label>
-            or less
-            <input ref="moreorless" name="moreorless" type="radio" value="less" checked={this.state.selectedOption === "less"} onChange={this.handleOptionChange.bind(this)} />?
-        </label>
-        </p>
-          <p>The least I would ever {this.state.nameVal} in one go is
-          <input ref="qty" type="text" placeholder="1,2,3..."/> <input ref="unit" type="text" onChange={this.setUnit.bind(this)} placeholder="miles, squats, etc..." />.
-        </p>
-          <p>With 10 being the most important, how important is it that I {this.state.nameVal} {this.state.selectedOption}?
+          <p>I would like to{" "}
+
+            <input ref="name" type="text" onBlur={this.formfiller.bind(this)} placeholder="activity name"/>{" "}
+
+            <label>
+                more{" "}
+                <input ref="moreorless" name="moreorless" type="radio" value="more" checked={this.state.selectedOption === "more"} onChange={this.handleOptionChange.bind(this)} />{" "}
+            </label>
+            <label>
+              or less{" "}
+              <input ref="moreorless" name="moreorless" type="radio" value="less" checked={this.state.selectedOption === "less"} onChange={this.handleOptionChange.bind(this)} />?
+            </label>
+          </p>
+        </form>
+
+        <form>
+          <p>The least I would ever {this.state.nameVal} in one go is{" "}
+            <input ref="qty" type="text" placeholder="1,2,3..."/>{" "}
+            <input ref="unit" type="text" onChange={this.setUnit.bind(this)} placeholder="miles, squats, etc..." />.
+          </p>
+        </form>
+
+
+        <form>
+          <p>With 10 being the most important, how important is it that I {this.state.nameVal}{" "} {this.state.selectedOption}?
           <input ref="weight" type="text" placeholder="1 - 10" /> </p>
           <button type="button" onClick={this.createNew.bind(this)}>Submit</button>
         </form>

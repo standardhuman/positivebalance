@@ -20,7 +20,7 @@ export default class NewUpdateActivity extends React.Component{
       <div>
         <p>How many times did I {this.props.activity.name} {this.props.activity.qty} {this.props.activity.unit} ?</p>
         <form>
-          <input type="number" id="input1" ref="myInput" onChange={this.onChange.bind(this)}></input>
+          <input type="number" id="input1" ref="myInput" onChange={this.onChange.bind(this)} placeholder="1,2,3..."></input>
           <input type="button" onClick={this.update.bind(this)}></input>
         </form>
       </div>
