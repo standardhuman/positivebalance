@@ -18,7 +18,7 @@ export default class NewUpdateActivity extends React.Component{
   render(){
     return (
       <div>
-        <p>How many times did you {this.props.activity.name} {this.props.activity.qty} {this.props.activity.unit} ?</p>
+        <p>How many times did I {this.props.activity.name} {this.props.activity.qty} {this.props.activity.unit} ?</p>
         <form>
           <input type="number" id="input1" ref="myInput" onChange={this.onChange.bind(this)}></input>
           <input type="button" onClick={this.update.bind(this)}></input>

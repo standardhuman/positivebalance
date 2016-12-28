@@ -8,7 +8,7 @@ export default class CreateActivity extends React.Component {
         nameVal: "",
         moreorless: "",
         unit: "",
-        moreOrLessConverted: ""
+        selectedOption: ""
     };
   }
 
@@ -19,9 +19,6 @@ export default class CreateActivity extends React.Component {
     const unit = this.refs.unit.value;
     const weight = parseInt(this.refs.weight.value);
 
-    console.log(name);
-    console.log(moreorless);
-
     this.props.createAndAddActivity(name, moreorless, qty, unit, weight)
   }
 
@@ -29,28 +26,17 @@ export default class CreateActivity extends React.Component {
     this.setState({nameVal: this.refs.name.value})
   }
 
-  setMoreOrLess(event){
-    this.setState({moreorless: event.target.value})
-    console.log("event.target.value:", event.target.value);
-    console.log("this.state.moreorless", this.state.moreorless);
-    this.moreOrLessConverter()
-  }
-
   setUnit(event){
     this.setState({unit: event.target.value})
   }
 
-  moreOrLessConverter(){
-    if(this.state.selectedOption === "more"){
-      this.setState({moreOrLessConverted: "1"})
-      console.log("this.state.moreOrLessConverted", this.state.moreOrLessConverted);
-    }else{
-      this.setState({moreOrLessConverted: "-1"})
-      console.log("else");
-    }
-  }
-
   handleOptionChange(changeEvent) {
+    if(changeEvent.target.value === "more"){
+      this.setState({moreorless: "1"})
+    }else{
+      this.setState({moreorless: "-1"})
+    }
+
     this.setState({
       selectedOption: changeEvent.target.value
     })
@@ -60,18 +46,22 @@ export default class CreateActivity extends React.Component {
     return (
       <div>
         <form>
-          <p>I would like to </p>
+          <p>I would like to
           <input ref="name" type="text" onBlur={this.formfiller.bind(this)} />
-          <p>more
-          <input ref="moreorless" name="moreorless" type="radio" value= "more" checked={this.state.selectedOption === 'more'} onChange={this.handleOptionChange.bind(this)} />
-          or less
-          <input ref="moreorless" name="moreorless" type="radio" value= "less" checked={this.state.selectedOption === "less"} onChange={this.handleOptionChange.bind(this)} />?</p>
-          <p>Unit name:</p>
-          <input ref="unit" type="text" onChange={this.setUnit.bind(this)}/>
-          <p>The minimum number of {this.state.unit} I would {this.state.nameVal} is: </p>
-          <input ref="qty" type="text" />
-          <p>How important is it that you {this.state.nameVal} {this.state.selectedOption}?</p>
-          <input ref="weight" type="text" />
+          <label>
+            more
+              <input ref="moreorless" name="moreorless" type="radio" value="more" checked={this.state.selectedOption === "more"} onChange={this.handleOptionChange.bind(this)} />
+          </label>
+        <label>
+            or less
+            <input ref="moreorless" name="moreorless" type="radio" value="less" checked={this.state.selectedOption === "less"} onChange={this.handleOptionChange.bind(this)} />?
+        </label>
+        </p>
+          <p>The least I would ever {this.state.nameVal} in one go is
+          <input ref="qty" type="text" placeholder="1,2,3..."/> <input ref="unit" type="text" onChange={this.setUnit.bind(this)} placeholder="miles, squats, etc..." />.
+        </p>
+          <p>With 10 being the most important, how important is it that I {this.state.nameVal} {this.state.selectedOption}?
+          <input ref="weight" type="text" placeholder="1 - 10" /> </p>
           <button type="button" onClick={this.createNew.bind(this)}>Submit</button>
         </form>
       </div>
