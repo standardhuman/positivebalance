@@ -20,6 +20,9 @@ export default class CreateActivity extends React.Component {
     const weight = parseInt(this.refs.weight.value);
 
     this.props.createAndAddActivity(name, moreorless, qty, unit, weight)
+
+    this.handleSubmit()
+
   }
 
   formfiller(){
@@ -36,10 +39,18 @@ export default class CreateActivity extends React.Component {
     }else{
       this.setState({moreorless: "-1"})
     }
-
     this.setState({
       selectedOption: changeEvent.target.value
     })
+  }
+
+  handleSubmit(){
+    // event.preventDefault()
+    this.refs.value=""
+    this.refs.name.value = ""
+    this.refs.qty.value = ""
+    this.refs.unit.value = ""
+    this.refs.weight.value = ""
   }
 
   render () {

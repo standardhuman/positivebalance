@@ -10,7 +10,8 @@ CREATE TABLE activitytable (
   unit VARCHAR,
   weight INTEGER,
   didido INTEGER,
-  howmanyunits INTEGER
+  howmanyunits INTEGER,
+  total INTEGER
 );
 
 INSERT INTO activitytable (name, moreorless, qty, unit, weight, didido, howmanyunits) VALUES

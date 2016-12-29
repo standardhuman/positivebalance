@@ -11,9 +11,14 @@ export default class NewUpdateActivity extends React.Component{
     const theVal = parseInt(this.state.theVal);
     const actName = this.props.activity.name;
     this.props.updateHowMany(theVal, actName)
+    this.props.theFinalTotal()
+    this.handleSubmit()
   }
   onChange(e) {
     this.setState({theVal: e.target.value});
+  }
+  handleSubmit(){
+    this.refs.myInput.value = ""
   }
   render(){
     return (

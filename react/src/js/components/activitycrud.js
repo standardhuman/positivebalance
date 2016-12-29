@@ -1,15 +1,13 @@
-import React from "react";
-import UpdateActivitySection from "./updateactivitysection";
-import CreateActivity from "./createactivity";
-import Summary from "./summary"
+import React from "react"
+import CreateActivity from "./createactivity"
 import NewUpdateActivity from "./newupdateactivity"
-
+import EachActivitySummary from "./eachactivitysummary"
 // source of state
 // has functionality to catch state updates in children
 export default class ActivityCRUD extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {activities: []};
+      this.state = {activities: [], summaryNumbers: []};
   }
 
   updateHowMany(val, actName){
@@ -20,10 +18,6 @@ export default class ActivityCRUD extends React.Component {
      let temparray = this.state.activities.slice()
      temparray[i].howmanyunits = val
      this.setState({activities: temparray})
-        // let state = {}
-        // state[this.state.activities[i].howmanyunits = val]
-        // console.log("state", state)
-        // this.setState(state)
         return
       }else{
       }
@@ -31,7 +25,6 @@ export default class ActivityCRUD extends React.Component {
   }
 
   createAndAddActivity(name, moreorless, qty, unit, weight){
-
     let newObject = {
       name: name,
       moreorless: moreorless,
@@ -41,10 +34,10 @@ export default class ActivityCRUD extends React.Component {
       didido: "",
       howmanyunits: ""
     }
+
     let newArray  = this.state.activities.slice()
     newArray.push(newObject)
     this.setState({activities: newArray})
-
   }
 
   componentDidMount() {
@@ -54,24 +47,50 @@ export default class ActivityCRUD extends React.Component {
         response.json().then((message) => {
           this.setState({activities: message.data})
         })
-      }).catch(function(err) {});
+      }).catch(function(err) {})
   }
+
+  theFinalTotal(){
+    let summaryNumbers = []
+
+    this.state.activities.forEach(function(activity){
+     summaryNumbers.push(((activity.howmanyunits * activity.weight / 10) * activity.moreorless))
+    })
+     console.log("summaryNumbers:", summaryNumbers)
+
+   let sum = summaryNumbers.reduce(function(acc, curr){
+     return curr+acc
+     }, 0)
+
+   console.log("sum:", sum)
+
+   let total = sum/summaryNumbers.length
+
+   console.log("total:", total)
+
+   this.setState({
+     total: total
+   })
+  }
+
   render() {
-    console.log("this.state.activities", this.state.activities);
-    let update = this.updateHowMany.bind(this);
+    console.log("this.state.activities", this.state.activities)
+    let update = this.updateHowMany.bind(this)
+    let theFinalTotal = this.theFinalTotal.bind(this)
+
       if (this.state.activities.length > 0) {
         return (
           <div>
             <CreateActivity createAndAddActivity={this.createAndAddActivity.bind(this)}/>
 
             {this.state.activities.map(function(val, index, col){
-              return <NewUpdateActivity activity={val} updateHowMany={update} />
+              return <NewUpdateActivity activity={val} updateHowMany={update} theFinalTotal={theFinalTotal}/>
             })}
 
             {this.state.activities.map(function(val, index, col){
-              return (<Summary activity={val} />)
+              return (<EachActivitySummary activity={val} />)
             })}
-            </div>
+          </div>
         )
       } else {
         return (
