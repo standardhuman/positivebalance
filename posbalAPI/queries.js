@@ -48,6 +48,27 @@ function getSingleActivity(req, res, next) {
     });
 }
 
+function createActivity(req, res, next) {
+  req.body.moreorless = parseInt(req.body.moreorless);
+  req.body.qty = parseInt(req.body.qty);
+  req.body.howmanyunits = parseInt(req.body.howmanyunits);
+  req.body.weight = parseInt(req.body.weight);
+  req.body.total = parseInt(req.body.total);
+  db.none('insert into activitytable(name, moreorless, qty, unit, weight, howmanyunits)' +
+      'values(${name}, ${moreorless}, ${qty}, ${unit}, ${weight}, ${howmanyunits})',
+    req.body)
+    .then(function () {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: 'Inserted one activity'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
 module.exports = {
   getAllActivities: getAllActivities,
   getSingleActivity: getSingleActivity

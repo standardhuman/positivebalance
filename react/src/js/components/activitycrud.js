@@ -40,7 +40,7 @@ export default class ActivityCRUD extends React.Component {
     this.setState({activities: newArray})
   }
 
-  componentDidMount() {
+  componentWillMount() {
     fetch('http://localhost:3000/api/activities', {
   	method: 'get'
       }).then((response) => {
@@ -60,16 +60,12 @@ export default class ActivityCRUD extends React.Component {
 
    let sum = summaryNumbers.reduce(function(acc, curr){
      return curr+acc
-     }, 0)
+   }, 0).toFixed(2)
 
    console.log("sum:", sum)
 
-   let total = sum/summaryNumbers.length
-
-   console.log("total:", total)
-
    this.setState({
-     total: total
+     total: sum
    })
   }
 
@@ -84,12 +80,13 @@ export default class ActivityCRUD extends React.Component {
             <CreateActivity createAndAddActivity={this.createAndAddActivity.bind(this)}/>
 
             {this.state.activities.map(function(val, index, col){
-              return <NewUpdateActivity activity={val} updateHowMany={update} theFinalTotal={theFinalTotal}/>
+              return <NewUpdateActivity activity={val} updateHowMany={update} theFinalTotal={theFinalTotal} />
             })}
 
             {this.state.activities.map(function(val, index, col){
               return (<EachActivitySummary activity={val} />)
             })}
+            {this.state.total}
           </div>
         )
       } else {
