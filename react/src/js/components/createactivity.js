@@ -21,8 +21,8 @@ export default class CreateActivity extends React.Component {
 
     this.props.createAndAddActivity(name, moreorless, qty, unit, weight)
 
-    this.handleSubmit()
-
+    this.sendActivity(name, moreorless, qty, unit, weight)
+    this.clearForm()
   }
 
   formfiller(){
@@ -44,13 +44,30 @@ export default class CreateActivity extends React.Component {
     })
   }
 
-  handleSubmit(){
+  clearForm(){
     // event.preventDefault()
     this.refs.value=""
     this.refs.name.value = ""
     this.refs.qty.value = ""
     this.refs.unit.value = ""
     this.refs.weight.value = ""
+  }
+
+  sendActivity(name, moreorless, qty, unit, weight){
+    fetch('http://localhost:3000/api/activities', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        moreorless: moreorless,
+        qty: qty,
+        unit: unit,
+        weight: weight
+      })
+    })
   }
 
   render () {

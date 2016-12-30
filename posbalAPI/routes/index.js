@@ -4,7 +4,8 @@ var router = express.Router();
 var db = require('../queries');
 
 
-router.get('/api/activities', db.getAllActivities);
+router.get('/api/activities', db.getAllActivities)
 router.get('/api/activities/:name', db.getSingleActivity)
+router.post('/api/activities', db.createActivity)
 
 module.exports = router;

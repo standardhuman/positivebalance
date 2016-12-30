@@ -54,8 +54,8 @@ function createActivity(req, res, next) {
   req.body.howmanyunits = parseInt(req.body.howmanyunits);
   req.body.weight = parseInt(req.body.weight);
   req.body.total = parseInt(req.body.total);
-  db.none('insert into activitytable(name, moreorless, qty, unit, weight, howmanyunits)' +
-      'values(${name}, ${moreorless}, ${qty}, ${unit}, ${weight}, ${howmanyunits})',
+  db.none('insert into activitytable(name, moreorless, qty, unit, weight, howmanyunits, total)' +
+      'values(${name}, ${moreorless}, ${qty}, ${unit}, ${weight}, ${howmanyunits}, ${total})',
     req.body)
     .then(function () {
       res.status(200)
@@ -71,5 +71,6 @@ function createActivity(req, res, next) {
 
 module.exports = {
   getAllActivities: getAllActivities,
-  getSingleActivity: getSingleActivity
+  getSingleActivity: getSingleActivity,
+  createActivity: createActivity
 };

@@ -13,6 +13,6 @@ CREATE TABLE activitytable (
   total INTEGER
 );
 
-INSERT INTO activitytable (name, moreorless, qty, unit, weight, howmanyunits) VALUES
+INSERT INTO activitytable (name, moreorless, qty, unit, weight, howmanyunits, total) VALUES
   ('run', 1, 1, 'mile', 5, 1, 0),
   ('drink', -1, 1, 'drinks', 6, 1, 0);
