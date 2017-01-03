@@ -21,7 +21,7 @@ export default class CreateActivity extends React.Component {
 
     this.props.createAndAddActivity(name, moreorless, qty, unit, weight)
 
-    this.sendActivity(name, moreorless, qty, unit, weight, this.props.howmanyunits, this.props.total)
+    this.sendActivity(name, moreorless, qty, unit, weight)
     this.clearForm()
   }
 
@@ -53,7 +53,7 @@ export default class CreateActivity extends React.Component {
     this.refs.weight.value = ""
   }
 
-  sendActivity(name, moreorless, qty, unit, weight, howmanyunits, total){
+  sendActivity(name, moreorless, qty, unit, weight){
     fetch('http://localhost:3000/api/activities', {
       method: 'POST',
       headers: {
@@ -66,29 +66,11 @@ export default class CreateActivity extends React.Component {
         qty: qty,
         unit: unit,
         weight: weight,
-        howmanyunits: 0,
-        total: 0
+        howmanyunits: howmanyunits,
+        total: total
       })
     })
   }
-// sendActivity(name, moreorless, qty, unit, weight){
-//   var http = new XMLHttpRequest();
-// var url = "http://localhost:3000/api/activities";
-// var params = "name=binny&moreorless=3&qty=4&unit=miles&weight=4&howmanyunits=4&total=10";
-// http.open("POST", url, true);
-//
-// //Send the proper header information along with the request
-// http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-// http.setRequestHeader("Content-length", params.length);
-// http.setRequestHeader("Connection", "close")
-//
-// http.onreadystatechange = function() {//Call a function when the state changes.
-//     if(http.readyState == 4 && http.status == 200) {
-//         alert(http.responseText);
-//     }
-// }
-// http.send(params);
-// }
 
   render () {
     return (

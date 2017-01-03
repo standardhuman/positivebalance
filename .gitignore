@@ -38,3 +38,6 @@ jspm_packages
 
 # Scratch directories
 scratch
+
+.DS_Store
+/*.env
