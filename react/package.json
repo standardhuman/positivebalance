@@ -5,6 +5,8 @@
   "main": "index.js",
   "author": "",
   "license": "ISC",
+  "engines" : {
+      "node" : "*" },
   "dependencies": {
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.0",

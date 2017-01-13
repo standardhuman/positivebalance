@@ -2,8 +2,10 @@
   "name": "pozbal-postgres",
   "version": "0.0.0",
   "private": true,
+  "engines" : {
+      "node" : "*" },
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "bluebird": "^3.3.4",
