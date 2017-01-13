@@ -1,37 +1,22 @@
-var express = require('express')
-var app = express()
+var path = require('path');
+var express = require('express');
+var app = express();
+var PORT = process.env.PORT || 8080
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
+app.use(express.static(path.join(__dirname, 'src')));
+// app.use(express.static(path.join(__dirname, 'src', 'js')));
+// app.use('/src', express.static(path.join(__dirname, 'src')));
+// app.use('src/js', express.static(path.join(__dirname, '/src/js')));
+
+app.get('/', function(request, response) {
+  response.sendFile(path.join(__dirname, '/src/index.html'))
+  // response.sendFile('index.html', { root: path.join(__dirname, 'src') });
 });
 
-const model = {
-  activities: [
-    {
-        name: 'run',
-        moreorless: 1,
-        quantity: 1,
-        unit: 'mile',
-        weight: 5,
-        didido: 1,
-        howmanyunits: 0
-    }, {
-        name: 'drink',
-        moreorless: -1,
-        quantity: 1,
-        unit: 'drinks',
-        weight: 6,
-        didido: 1,
-        howmanyunits: 0
-    }
-  ]  
-}
-app.get('/', function (req, res) {
-  res.send(model)
-})
-
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
-})
+app.listen(PORT, function(error) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.info("==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.", PORT, PORT);
+  }
+});

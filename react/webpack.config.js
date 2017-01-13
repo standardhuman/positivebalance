@@ -1,30 +1,31 @@
-var debug = process.env.NODE_ENV !== "production";
 var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
-  context: __dirname,
-  devtool: debug ? "inline-sourcemap" : null,
-  entry: "./src/js/index.js",
+  entry: [
+    './src/js/index.js'
+  ],
   module: {
     loaders: [
-      {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['react', 'es2015', 'stage-0'],
-          plugins: ['react-html-attrs', 'transform-decorators-legacy', 'transform-class-properties'],
-        }
-      }
+      { test: /\.js?$/, loader: 'babel', exclude: /node_modules/ },
+      { test: /\.s?css$/, loader: 'style!css!sass' },
     ]
   },
-  output: {
-    path: __dirname + "/src/",
-    filename: "index.min.js"
+  resolve: {
+    extensions: ['', '.js']
   },
-  plugins: debug ? [] : [
-    new webpack.optimize.DedupePlugin(),
+  output: {
+    path: path.join(__dirname, '/src'),
+    publicPath: '/',
+    filename: 'bundle.js'
+  },
+  devServer: {
+    contentBase: './dist',
+    hot: true
+  },
+  plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
-  ],
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ]
 };

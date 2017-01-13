@@ -6,15 +6,15 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = {
-   user: 'postgres',
-   password: 'nodalpass',
-   host: 'localhost',
-   port: 5432,
-   database: 'activities'
-};
+var connectionString = 'postgres://pspdyhjajpkpse:ccb3325b132501bc870fcc9594e27587fa5f966e14ebf1e32fad112d780e18f7@ec2-54-221-212-48.compute-1.amazonaws.com:5432/d94e5ob9cmjfc6'
 
 var db = pgp(connectionString);
+
+function testFunction(req, res) {
+  res.render('index', {
+    title: 'Hello World! Express.js on Google App Engine.'
+  });
+};
 
 // add query functions
 function getAllActivities(req, res, next) {
@@ -72,5 +72,6 @@ function createActivity(req, res, next) {
 module.exports = {
   getAllActivities: getAllActivities,
   getSingleActivity: getSingleActivity,
-  createActivity: createActivity
+  createActivity: createActivity,
+  testFunction: testFunction
 };

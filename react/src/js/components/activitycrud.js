@@ -41,7 +41,7 @@ export default class ActivityCRUD extends React.Component {
   }
 
   componentWillMount() {
-    fetch('http://localhost:3000/api/activities', {
+    fetch('https://shielded-retreat-42898.herokuapp.com/api/activities', {
   	method: 'get'
       }).then((response) => {
         response.json().then((message) => {
@@ -74,19 +74,42 @@ export default class ActivityCRUD extends React.Component {
     let update = this.updateHowMany.bind(this)
     let theFinalTotal = this.theFinalTotal.bind(this)
 
+
+    const appContainer = {"border": "2px solid grey", "width": "50%", "margin": "0 auto 0 auto", "borderRadius": "2rem"}
+    const createActContainer = {"border": "2px solid grey", "margin": "2rem auto 2rem auto", "padding": "1rem", "width": "80%", "borderRadius": "1rem"}
+    const summaryStyle = {"border": "2px solid grey", "width": "33%", "margin": "2rem auto 2rem auto", "padding": "1rem", "borderRadius": "1rem"}
+    const titleStyle = {"fontFamily": "ariel", "fontSize": "2.5rem", "textAlign": "center", "display": "block", "margin": "1rem auto 1rem auto", "width": "50%"}
+    const flex = {}
+
       if (this.state.activities.length > 0) {
         return (
-          <div>
-            <CreateActivity createAndAddActivity={this.createAndAddActivity.bind(this)}/>
+          <div style={appContainer}>
 
+          <span style={titleStyle}>Positive Balance</span>
+
+            <div style={createActContainer}>
+            <CreateActivity createAndAddActivity={this.createAndAddActivity.bind(this)}/>
+            </div>
+
+            <div style={flex}>
+            <div style={summaryStyle}>
             {this.state.activities.map(function(val, index, col){
               return <NewUpdateActivity activity={val} updateHowMany={update} theFinalTotal={theFinalTotal} />
             })}
+            </div>
 
+            <div style={summaryStyle}>
             {this.state.activities.map(function(val, index, col){
               return (<EachActivitySummary activity={val} />)
             })}
+            </div>
+
+            <div style={summaryStyle}>
+            Total:
             {this.state.total}
+            </div>
+            </div>
+
           </div>
         )
       } else {

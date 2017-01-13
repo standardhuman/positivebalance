@@ -22,16 +22,13 @@
     "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
-    "react": "^0.14.6",
-    "react-dom": "^0.14.6",
-    "react-redux": "^4.4.6",
-    "redux": "^3.6.0",
-    "webpack": "^1.12.9",
-    "webpack-dev-server": "^1.14.1",
-    "redux-devtools": "^3.3.1"
+    "webpack-dev-server": "^1.14.1"
   },
   "scripts": {
-    "dev": "webpack-dev-server --content-base src --inline --hot",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  }
+    "prestart": "webpack --config webpack.config.js",
+    "start": "node server.js",
+    "deploy": "gcloud app deploy",
+    "dev": "webpack-dev-server --content-base src --inline --hot"
+  },
+  "engines" : { "node" : "~4.2.2" }
 }

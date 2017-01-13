@@ -54,7 +54,7 @@ export default class CreateActivity extends React.Component {
   }
 
   sendActivity(name, moreorless, qty, unit, weight, howmanyunits, total){
-    fetch('http://localhost:3000/api/activities', {
+    fetch('https://shielded-retreat-42898.herokuapp.com/api/activities', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
