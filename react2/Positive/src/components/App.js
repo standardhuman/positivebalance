@@ -14,22 +14,21 @@ class App extends React.Component {
     }
   }
 
-  loadActivities (){
+// reformatted to arrow function
+  loadActivities = () => {
     this.setState({
       activities: sampleActivities
     })
   }
-
   render() {
     return (
       <div className='positive-balance'>
         <div className="activity-list">
           <Header tagline="How was your day?" />
           <ul className="list-of-activities">
-          {
-            Object
+          {Object
             .keys(this.state.activities)
-            .map(key => <Activity key={key} index={key} details={this.state.activities[key]} addToSummary={this.addToSummary} />)
+            .map(key => <Activity key={key} index={key} details={this.state.activities[key]}  addToSummary={this.addToSummary} />)
           }
           </ul>
         </div>
