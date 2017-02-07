@@ -12,14 +12,27 @@ class App extends React.Component {
       activities: {},
       summary: {}
     }
+    this.loadActivities = this.loadActivities.bind(this)
+    this.addToSummary = this.addToSummary.bind(this)
   }
 
-// reformatted to arrow function
-  loadActivities = () => {
+  loadActivities() {
     this.setState({
       activities: sampleActivities
     })
   }
+
+  addToSummary(howManyTimes, key) {
+    const summary = {...this.state.summary}
+    console.log("howmanytimes", howManyTimes);
+    console.log("key", key);
+    summary[key] = howManyTimes
+    this.setState({
+        summary: summary
+      })
+      console.log("summary", this.state.summary);
+  }
+
   render() {
     return (
       <div className='positive-balance'>
@@ -31,6 +44,7 @@ class App extends React.Component {
             .map(key => <Activity key={key} index={key} details={this.state.activities[key]}  addToSummary={this.addToSummary} />)
           }
           </ul>
+          <p>{this.state.summary.act1}</p>
         </div>
           <Summary />
           <AddActivity loadActivities={this.loadActivities} />
