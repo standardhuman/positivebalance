@@ -3,7 +3,8 @@ import React from 'react';
 class Header extends React.Component {
   render() {
     return (
-      <h2>Header</h2>
+
+      <h1>Positive Balance</h1>
     )
   }
 }

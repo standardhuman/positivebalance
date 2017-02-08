@@ -29,7 +29,7 @@ const activities = {
     weight: 10
   },
   act5: {
-    name: 'Dolphin catching',
+    name: 'Dolphin catch',
     moreorless: -1,
     unit: 'rodeo',
     minqty: 1,

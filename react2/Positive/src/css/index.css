@@ -5,6 +5,19 @@ body {
 }
 
 .panel {
-  width: 33.33%;
+  width: 50%;
   padding: 1em;
+  border: 1px solid black;
+}
+
+.positive-balance {
+  display: flex;
+}
+
+.editForm {
+  display: none;
+}
+
+.showForm {
+  display: inline-block;
 }

@@ -1,9 +1,13 @@
 import React from 'react';
+import Modify from './Modify'
+
+import { pluralize } from '../helpers'
 
 class Activity extends React.Component {
   constructor (){
     super ()
     this.sendSummary = this.sendSummary.bind(this)
+    this.editActivity = this.editActivity.bind(this)
   }
 
   sendSummary () {
@@ -12,13 +16,21 @@ class Activity extends React.Component {
     this.props.addToSummary(howManyTimes, key)
   }
 
+  editActivity (){
+    document.querySelector('.editForm').classList.toggle('showForm')
+  }
+
   render() {
+    const {name, moreorless, minqty, unit} = this.props.details
     return (
       <div>
-        <h2>{this.props.details.name}</h2>
-        <p>How many times did you {this.props.details.name.toLowerCase()} for {this.props.details.minqty} {this.props.details.unit}?</p>
-        <input ref={(input) => this.summary = input} type="text" placeholder="how many?" />
+        <h2>{name}</h2>
+        <p>How many times did you {name.toLowerCase()} for {minqty} {pluralize(minqty, unit)}?</p>
+        <input ref={(input) => this.summary = input} type="text" placeholder="1, 2, 3..." />
         <button onClick={this.sendSummary}>Go</button>
+
+        <h6><a onClick={this.editActivity}>Edit</a></h6>
+
       </div>
 
     )
