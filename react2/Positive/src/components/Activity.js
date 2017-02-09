@@ -7,17 +7,13 @@ class Activity extends React.Component {
   constructor (){
     super ()
     this.sendSummary = this.sendSummary.bind(this)
-    this.editActivity = this.editActivity.bind(this)
+    // this.editActivity = this.editActivity.bind(this)
   }
 
   sendSummary () {
     const howManyTimes = this.summary.value
     const key = this.props.index
     this.props.addToSummary(howManyTimes, key)
-  }
-
-  editActivity (){
-    document.querySelector('.editForm').classList.toggle('showForm')
   }
 
   render() {
@@ -29,8 +25,7 @@ class Activity extends React.Component {
         <input ref={(input) => this.summary = input} type="text" placeholder="1, 2, 3..." />
         <button onClick={this.sendSummary}>Go</button>
 
-        <h6><a onClick={this.editActivity}>Edit</a></h6>
-
+        <Modify index={this.props.index} details={this.props.details} />
       </div>
 
     )

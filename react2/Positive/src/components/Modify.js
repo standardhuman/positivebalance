@@ -2,9 +2,22 @@ import React from 'react';
 
 
 class Modify extends React.Component {
+  constructor() {
+    super()
+    this.editActivity = this.editActivity.bind(this);
+  }
+  editActivity (){
+    const allForms = Array.from(document.querySelectorAll('.editForm'));
+    const index = (this.props.index.slice(3)) - 1;
+    const correctForm = allForms[index];
+    correctForm.classList.toggle('showForm');
+  }
+
   render() {
+    const {name, moreorless, minqty, unit} = this.props.details
     return (
       <div>
+        <h6><a onClick={this.editActivity}>Edit</a></h6>
         <form action="" className="editForm">
           <p>I would like to {name.toLowerCase()}
           <input type="radio" name="moreorless" className="moreorless" label="more" value="1"/> more
