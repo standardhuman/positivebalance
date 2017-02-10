@@ -1,6 +1,6 @@
 import React from 'react';
 import Summary from './Summary'
-// import AddActivity from './AddActivity'
+import AddActivity from './AddActivity'
 import sampleActivities from '../sampleActivities'
 import Header from './Header'
 import Activity from './Activity'
@@ -15,6 +15,7 @@ class App extends React.Component {
     this.loadActivities = this.loadActivities.bind(this)
     this.addToSummary = this.addToSummary.bind(this)
     this.updateActivity = this.updateActivity.bind(this)
+    this.addActivity = this.addActivity.bind(this)
   }
 
   loadActivities() {
@@ -40,14 +41,21 @@ class App extends React.Component {
     })
   }
 
+  addActivity(activity) {
+    const activities = {...this.state.activities}
+    const timeStamp = Date.now()
+    activities[`act${timeStamp}`] = activity
+    this.setState({
+      activities
+    })
+  }
+
   render() {
     return (
       <div className='positive-balance'>
         <div className="activity-list panel">
           <Header tagline="How was your day?" />
-          {/* <h2>Add Activity</h2> */}
-          {/* input  create new & update old  */}
-          {/*  two types of forms and a button, first form runs once and creates new activity. multiple forms for updating activity. */}
+          <AddActivity addActivity={this.addActivity} />
           <button onClick={this.loadActivities}>Load Sample Activities</button>
           <ul className="list-of-activities">
           {Object
@@ -57,7 +65,6 @@ class App extends React.Component {
           </ul>
         </div>
             <Summary activities={this.state.activities} summary={this.state.summary}/>
-            {/* <AddActivity loadActivities={this.loadActivities} /> */}
       </div>
     );
   }

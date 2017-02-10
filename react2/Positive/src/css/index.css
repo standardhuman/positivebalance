@@ -14,7 +14,9 @@ body {
   display: flex;
 }
 
-.editForm {
+.editForm {}
+
+.hideForm {
   display: none;
 }
 

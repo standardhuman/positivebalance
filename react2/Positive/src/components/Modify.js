@@ -7,20 +7,18 @@ class Modify extends React.Component {
     this.editActivity = this.editActivity.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+
   editActivity (){
     const allForms = Array.from(document.querySelectorAll('.editForm'));
     const index = (this.props.index.slice(3)) - 1;
     const correctForm = allForms[index];
-    correctForm.classList.toggle('showForm');
+    correctForm.classList.toggle('hideForm');
   }
 
   handleChange(e, index){
     const activity = this.props.details
     const updatedActivity = {...activity, [e.target.name]: e.target.value}
     this.props.updateActivity(index, updatedActivity)
-    console.log("index", index);
-    console.log("activity", activity);
-    console.log("updatedActivity", updatedActivity);
   }
 
   render() {
@@ -29,7 +27,7 @@ class Modify extends React.Component {
     return (
       <div>
         <h6><a onClick={this.editActivity}>Edit</a></h6>
-        <form action="" className="editForm">
+        <form className="editForm hideForm">
 
           <p>I would like to {name.toLowerCase()}
           <input type="radio" name="moreorless" className="moreorless" label="more" value="1" checked={moreorless > 0 ? 'checked' : ''} onChange={(e)=>this.handleChange(e, index)}/> more
