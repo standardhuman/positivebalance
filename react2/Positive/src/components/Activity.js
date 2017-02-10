@@ -11,13 +11,13 @@ class Activity extends React.Component {
   }
 
   sendSummary () {
-    const howManyTimes = this.summary.value
+    const howManyTimes = this.summary.value || 0
     const key = this.props.index
     this.props.addToSummary(howManyTimes, key)
   }
 
   render() {
-    const {name, moreorless, minqty, unit} = this.props.details
+    const {name, minqty, unit} = this.props.details
     return (
       <div>
         <h2>{name}</h2>
@@ -25,7 +25,7 @@ class Activity extends React.Component {
         <input ref={(input) => this.summary = input} type="text" placeholder="1, 2, 3..." />
         <button onClick={this.sendSummary}>Go</button>
 
-        <Modify index={this.props.index} details={this.props.details} />
+        <Modify index={this.props.index} details={this.props.details} updateActivity={this.props.updateActivity}/>
       </div>
 
     )

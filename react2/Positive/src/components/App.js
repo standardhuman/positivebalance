@@ -14,6 +14,7 @@ class App extends React.Component {
     }
     this.loadActivities = this.loadActivities.bind(this)
     this.addToSummary = this.addToSummary.bind(this)
+    this.updateActivity = this.updateActivity.bind(this)
   }
 
   loadActivities() {
@@ -31,6 +32,14 @@ class App extends React.Component {
       console.log("this.state", this.state);
   }
 
+  updateActivity(key, updatedActivity){
+    const activities = {...this.state.activities}
+    activities[key] = updatedActivity
+    this.setState({
+      activities
+    })
+  }
+
   render() {
     return (
       <div className='positive-balance'>
@@ -43,7 +52,7 @@ class App extends React.Component {
           <ul className="list-of-activities">
           {Object
             .keys(this.state.activities)
-            .map(key => <Activity key={key} index={key} details={this.state.activities[key]}  addToSummary={this.addToSummary} />)
+            .map(key => <Activity key={key} index={key} details={this.state.activities[key]}  addToSummary={this.addToSummary} updateActivity={this.updateActivity}/>)
           }
           </ul>
         </div>
