@@ -9,9 +9,7 @@ class Modify extends React.Component {
   }
 
   editActivity (){
-    const allForms = Array.from(document.querySelectorAll('.editForm'));
-    const index = (this.props.index.slice(3)) - 1;
-    const correctForm = allForms[index];
+    const correctForm = document.querySelector(`.${this.props.index}`);
     correctForm.classList.toggle('hideForm');
   }
 
@@ -24,10 +22,11 @@ class Modify extends React.Component {
   render() {
     const index = this.props.index
     const {name, moreorless, minqty, unit, weight} = this.props.details
+    let classes = `${this.props.index} hideForm`
     return (
       <div>
         <h6><a onClick={this.editActivity}>Edit</a></h6>
-        <form className="editForm hideForm">
+        <form className={classes}>
 
           <p>I would like to {name.toLowerCase()}
           <input type="radio" name="moreorless" className="moreorless" label="more" value="1" checked={moreorless > 0 ? 'checked' : ''} onChange={(e)=>this.handleChange(e, index)}/> more

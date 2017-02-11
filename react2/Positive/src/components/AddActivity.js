@@ -9,7 +9,7 @@ class AddActivity extends React.Component {
   showCreateForm(){
     const createForm = document.querySelector('.createForm')
     createForm.classList.toggle('hideForm')
-    console.log(document.querySelector('.createForm'));
+    // console.log(document.querySelector('.createForm'));
   }
 
   createActivity(e) {
