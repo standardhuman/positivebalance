@@ -15,16 +15,25 @@ class Summary extends React.Component {
     return (
       <li key={key}>
         {equalized} points for {activity.name} today.
+        <button onClick={() => this.props.removeSummaryId(key)}>&times;</button>
       </li>
     )
   }
 
   render() {
-    // create array of state keys, in this case act1, act2, etc  
+    // create array of state keys, in this case act1, act2, etc
     const summaryIds = Object.keys(this.props.summary)
+    const activityIds = Object.keys(this.props.activities)
+    let runIt;
+    if (activityIds.length > 0) {
+      runIt = summaryIds.map(this.renderSummary);
+    }
 
+    console.log("this.props.activities", this.props.activities)
+    console.log("this.props.summary", this.props.summary)
+    console.log("activity Ids", activityIds);
+    console.log("summary Ids", summaryIds);
     const total = summaryIds.reduce((prevTotal, key) => {
-
       const activity = this.props.activities[key]
       const summary = this.props.summary[key]
 
@@ -39,7 +48,7 @@ class Summary extends React.Component {
     return (
       <div className="panel">
       <h2>Summary</h2>
-        {summaryIds.map(this.renderSummary)}
+        {runIt}
 
         Today's total: {total}
       </div>

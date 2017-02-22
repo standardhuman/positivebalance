@@ -25,7 +25,7 @@ class Activity extends React.Component {
         <input ref={(input) => this.summary = input} type="text" placeholder="1, 2, 3..." />
         <button onClick={this.sendSummary}>Go</button>
 
-        <Modify index={this.props.index} details={this.props.details} updateActivity={this.props.updateActivity}/>
+        <Modify index={this.props.index} details={this.props.details} updateActivity={this.props.updateActivity} removeActivity={this.props.removeActivity}/>
       </div>
 
     )

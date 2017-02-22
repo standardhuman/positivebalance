@@ -4,6 +4,7 @@ import AddActivity from './AddActivity'
 import sampleActivities from '../sampleActivities'
 import Header from './Header'
 import Activity from './Activity'
+import base from '../base'
 
 class App extends React.Component {
   constructor (){
@@ -16,6 +17,56 @@ class App extends React.Component {
     this.addToSummary = this.addToSummary.bind(this)
     this.updateActivity = this.updateActivity.bind(this)
     this.addActivity = this.addActivity.bind(this)
+    this.handleSummary = this.handleSummary.bind(this)
+    this.removeActivity = this.removeActivity.bind(this)
+    this.removeSummaryId = this.removeSummaryId.bind(this)
+  }
+
+  handleSummary() {
+    const localStorageRef = localStorage.getItem('summary')
+    if (localStorageRef) {
+      this.setState({
+        summary: JSON.parse(localStorageRef)
+      })
+      console.log("localStorageRef", localStorageRef)
+    }
+  }
+  componentWillMount() {
+      // const promise = new Promise((resolve, reject) => {
+        this.ref = base.syncState('/activities'
+        , {
+          context: this,
+          state: 'activities'
+        });
+      // });
+
+      // promise.then(console.log("basesync promise this.state.activities", this.state.activities));
+
+
+      // setTimeout(()=>{this.handleSummary()}, 10);
+      this.handleSummary();
+
+
+
+
+
+  }
+  // componentDidMount() {
+  //   const localStorageRef = localStorage.getItem('summary')
+  //   if (localStorageRef) {
+  //     this.setState({
+  //       summary: JSON.parse(localStorageRef)
+  //     })
+  //     console.log("localStorageRef", localStorageRef)
+  //   }
+  // }
+
+  componentWillUnMount() {
+    base.removeBinding(this.ref);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    localStorage.setItem('summary', JSON.stringify(nextState.summary))
   }
 
   loadActivities() {
@@ -50,6 +101,27 @@ class App extends React.Component {
     })
   }
 
+  removeActivity(key) {
+    const activities = {...this.state.activities};
+    const summary = {...this.state.summary};
+    activities[key] = null;
+    delete summary[key]
+    this.setState({
+      activities: activities,
+      summary: summary
+    })
+  }
+
+  removeSummaryId(key) {
+    const summary = {...this.state.summary};
+    console.log("summary state copy", summary)
+    delete summary[key];
+    this.setState({
+      summary: summary
+    })
+    console.log("remove summary Id");
+  }
+
   render() {
     return (
       <div className='positive-balance'>
@@ -60,11 +132,11 @@ class App extends React.Component {
           <ul className="list-of-activities">
           {Object
             .keys(this.state.activities)
-            .map(key => <Activity key={key} index={key} details={this.state.activities[key]}  addToSummary={this.addToSummary} updateActivity={this.updateActivity}/>)
+            .map(key => <Activity key={key} index={key} details={this.state.activities[key]} addToSummary={this.addToSummary} updateActivity={this.updateActivity} removeActivity={this.removeActivity}/>)
           }
           </ul>
         </div>
-            <Summary activities={this.state.activities} summary={this.state.summary}/>
+            <Summary activities={this.state.activities} summary={this.state.summary} removeSummaryId={this.removeSummaryId}/>
       </div>
     );
   }

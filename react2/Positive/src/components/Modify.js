@@ -40,7 +40,9 @@ class Modify extends React.Component {
           <p>How important is it to me that I {name.toLowerCase()} {moreorless}?
           <input type="text" name="weight" placeholder="1-10" value={weight} onChange={(e)=>this.handleChange(e, index)}/>
           </p>
+          <button onClick={() => this.props.removeActivity(index)}>Remove Activity</button>
         </form>
+
       </div>
     )
   }
