@@ -28,3 +28,39 @@ body {
 .showForm {
   display: inline-block;
 }
+
+.zero {
+  text-align: center;
+  margin: 0 auto;
+
+  font-size: 2rem;
+  font-family: helvetica;
+}
+
+.containIt {
+  width: 100%;
+
+  position: relative;
+  display: flex;
+  text-align: center;
+  border: 2px solid blue;
+}
+
+.barGraphic {
+  background-color: white;
+  padding-top: 2rem;
+  border: 1px solid black;
+  flex-direction: normal;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.barGraphic2{
+  background-color: red;
+  padding-top: 2rem;
+  border: 1px solid black;
+  flex-direction: normal;
+  width: 50%;
+  margin: 0 auto
+
+}

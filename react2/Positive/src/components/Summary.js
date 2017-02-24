@@ -45,12 +45,30 @@ class Summary extends React.Component {
 
       return prevTotal
     }, 0)
+    let style;
+    let style2;
+    let smiler;
+    if (total >= 0) {
+      style = {paddingLeft: total * 10};
+    }
+      else {
+         style2 = {paddingRight: total * -10};
+         smiler = ": ( don't do drugs";
+       }
+
     return (
       <div className="panel">
       <h2>Summary</h2>
         {runIt}
 
         Today's total: {total}
+        <div className="containIt">
+          <div className="barGraphic" style={style}></div>
+          <div className="barGraphic2" style={style2}></div>
+
+        </div>
+        <div className="zero">0</div>
+        {smiler}
       </div>
     )
   }
