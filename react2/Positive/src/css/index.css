@@ -2,13 +2,36 @@ body {
   min-height: 100vh;
   margin: 0; /* Important! */
   font-family: sans-serif;
-  background:
-    linear-gradient(45deg, hsla(340, 100%, 55%, 1) 0%, hsla(340, 100%, 55%, 0) 70%),
+  background:#EFEFEF;
+
+    /* linear-gradient(45deg, hsla(340, 100%, 55%, 1) 0%, hsla(340, 100%, 55%, 0) 70%),
     linear-gradient(135deg, hsla(225, 95%, 50%, 1) 10%, hsla(225, 95%, 50%, 0) 80%),
     linear-gradient(225deg, hsla(140, 90%, 50%, 1) 10%, hsla(140, 90%, 50%, 0) 80%),
-    linear-gradient(315deg, hsla(35, 95%, 55%, 1) 100%, hsla(35, 95%, 55%, 0) 70%);
+    linear-gradient(315deg, hsla(35, 95%, 55%, 1) 100%, hsla(35, 95%, 55%, 0) 70%); */
 }
 
+.activity {
+  background-color: #CAEBF2;
+  color: #656363;
+  border-radius: 10px;
+  border: 5px dashed #90cdda;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.activity-name {
+
+}
+h2 {
+  color: #FF3B3F;
+}
+h1 {
+  color: #4a4848;
+}
+
+button {
+  color: #656363;
+}
 .panel {
   width: 50%;
   padding: 1em;
@@ -43,22 +66,20 @@ body {
   position: relative;
   display: flex;
   text-align: center;
-  border: 2px solid blue;
 }
 
 .barGraphic {
-  background-color: white;
+  background-color: #CAEBF2;
   padding-top: 2rem;
-  border: 1px solid black;
   flex-direction: normal;
   width: 50%;
   margin: 0 auto;
 }
 
 .barGraphic2{
-  background-color: red;
+  background-color: #FF3B3F;
   padding-top: 2rem;
-  border: 1px solid black;
+
   flex-direction: normal;
   width: 50%;
   margin: 0 auto

@@ -67,7 +67,7 @@ class Summary extends React.Component {
           <div className="barGraphic2" style={style2}></div>
 
         </div>
-        <div className="zero">0</div>
+        <div className="zero">{total}</div>
         {smiler}
       </div>
     )

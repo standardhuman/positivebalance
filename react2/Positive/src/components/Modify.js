@@ -25,7 +25,7 @@ class Modify extends React.Component {
     let classes = `${this.props.index} hideForm`
     return (
       <div>
-        <h6><a onClick={this.editActivity}>Edit</a></h6>
+        <h6><a onClick={this.editActivity}>Edit Activity</a></h6>
         <form className={classes}>
 
           <p>I would like to {name.toLowerCase()}
@@ -40,6 +40,7 @@ class Modify extends React.Component {
           <p>How important is it to me that I {name.toLowerCase()} {moreorless}?
           <input type="text" name="weight" placeholder="1-10" value={weight} onChange={(e)=>this.handleChange(e, index)}/>
           </p>
+          <button onClick={this.editActivity}>Save</button>
           <button onClick={() => this.props.removeActivity(index)}>Remove Activity</button>
         </form>
 

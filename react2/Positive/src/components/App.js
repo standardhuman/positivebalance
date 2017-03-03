@@ -31,35 +31,15 @@ class App extends React.Component {
       console.log("localStorageRef", localStorageRef)
     }
   }
+
   componentWillMount() {
-      // const promise = new Promise((resolve, reject) => {
         this.ref = base.syncState('/activities'
         , {
           context: this,
           state: 'activities'
         });
-      // });
-
-      // promise.then(console.log("basesync promise this.state.activities", this.state.activities));
-
-
-      // setTimeout(()=>{this.handleSummary()}, 10);
       this.handleSummary();
-
-
-
-
-
   }
-  // componentDidMount() {
-  //   const localStorageRef = localStorage.getItem('summary')
-  //   if (localStorageRef) {
-  //     this.setState({
-  //       summary: JSON.parse(localStorageRef)
-  //     })
-  //     console.log("localStorageRef", localStorageRef)
-  //   }
-  // }
 
   componentWillUnMount() {
     base.removeBinding(this.ref);
@@ -127,8 +107,8 @@ class App extends React.Component {
       <div className='positive-balance'>
         <div className="activity-list panel">
           <Header tagline="How was your day?" />
-          <AddActivity addActivity={this.addActivity} />
           <button onClick={this.loadActivities}>Load Sample Activities</button>
+          <AddActivity addActivity={this.addActivity} />
           <ul className="list-of-activities">
           {Object
             .keys(this.state.activities)

@@ -22,12 +22,16 @@ class AddActivity extends React.Component {
       weight: this.weight.value
     }
     this.props.addActivity(activity)
+    const form = document.getElementsByClassName('createForm')[0]
+    console.log("FORM:", form)
+    form.reset()
   }
 
   render() {
 
     return (
       <div>
+        <button onClick={this.showCreateForm}>Create New Activity</button>
         <form className="createForm hideForm" onSubmit={(e) => this.createActivity(e)}>
 
           <p>I would like to
@@ -47,9 +51,8 @@ class AddActivity extends React.Component {
           <p>How important is it to me that I  ?
           <input type="text" name="weight" placeholder="1-10" ref={(input) => this.weight = input} />
           </p>
-          <button type="submit">Create Activity</button>
+          <button type="submit">Save</button>
         </form>
-        <button onClick={this.showCreateForm}>Create New Activity</button>
       </div>
     )
   }

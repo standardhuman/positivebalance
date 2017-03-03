@@ -19,7 +19,7 @@ class Activity extends React.Component {
   render() {
     const {name, minqty, unit} = this.props.details
     return (
-      <div>
+      <div className="activity">
         <h2>{name}</h2>
         <p>How many times did you {name.toLowerCase()} for {minqty} {pluralize(minqty, unit)}?</p>
         <input ref={(input) => this.summary = input} type="text" placeholder="1, 2, 3..." />
