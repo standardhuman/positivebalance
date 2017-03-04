@@ -3,11 +3,6 @@ body {
   margin: 0; /* Important! */
   font-family: sans-serif;
   background:#c7c7c7;
-
-    /* linear-gradient(45deg, hsla(340, 100%, 55%, 1) 0%, hsla(340, 100%, 55%, 0) 70%),
-    linear-gradient(135deg, hsla(225, 95%, 50%, 1) 10%, hsla(225, 95%, 50%, 0) 80%),
-    linear-gradient(225deg, hsla(140, 90%, 50%, 1) 10%, hsla(140, 90%, 50%, 0) 80%),
-    linear-gradient(315deg, hsla(35, 95%, 55%, 1) 100%, hsla(35, 95%, 55%, 0) 70%); */
 }
 
 .activity {
@@ -39,11 +34,13 @@ body {
 .createForm {
   padding: 1rem;
 }
+
 .list-of-activities {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 input {
   border-radius: 5px;
 }
@@ -72,6 +69,7 @@ h1 {
 button {
   color: #656363;
 }
+
 .panel {
   width: 70%;
   display: flex;
