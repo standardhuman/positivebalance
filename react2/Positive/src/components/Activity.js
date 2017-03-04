@@ -21,10 +21,9 @@ class Activity extends React.Component {
     return (
       <div className="activity">
         <h2>{name}</h2>
-        <p>How many times did you {name.toLowerCase()} for {minqty} {pluralize(minqty, unit)}?</p>
+        <p>How many times did you {name.toLowerCase()} {minqty} {pluralize(minqty, unit)} today?</p>
         <input ref={(input) => this.summary = input} type="text" placeholder="1, 2, 3..." />
         <button onClick={this.sendSummary}>Go</button>
-
         <Modify index={this.props.index} details={this.props.details} updateActivity={this.props.updateActivity} removeActivity={this.props.removeActivity}/>
       </div>
 

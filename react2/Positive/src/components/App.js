@@ -107,16 +107,16 @@ class App extends React.Component {
       <div className='positive-balance'>
         <div className="activity-list panel">
           <Header tagline="How was your day?" />
+          <Summary activities={this.state.activities} summary={this.state.summary} removeSummaryId={this.removeSummaryId}/>
           <button onClick={this.loadActivities}>Load Sample Activities</button>
           <AddActivity addActivity={this.addActivity} />
-          <ul className="list-of-activities">
+          <div className="list-of-activities">
           {Object
             .keys(this.state.activities)
             .map(key => <Activity key={key} index={key} details={this.state.activities[key]} addToSummary={this.addToSummary} updateActivity={this.updateActivity} removeActivity={this.removeActivity}/>)
           }
-          </ul>
         </div>
-            <Summary activities={this.state.activities} summary={this.state.summary} removeSummaryId={this.removeSummaryId}/>
+        </div>
       </div>
     );
   }

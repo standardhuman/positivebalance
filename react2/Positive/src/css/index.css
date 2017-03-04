@@ -2,7 +2,7 @@ body {
   min-height: 100vh;
   margin: 0; /* Important! */
   font-family: sans-serif;
-  background:#EFEFEF;
+  background:#c7c7c7;
 
     /* linear-gradient(45deg, hsla(340, 100%, 55%, 1) 0%, hsla(340, 100%, 55%, 0) 70%),
     linear-gradient(135deg, hsla(225, 95%, 50%, 1) 10%, hsla(225, 95%, 50%, 0) 80%),
@@ -17,11 +17,51 @@ body {
   border: 5px dashed #90cdda;
   padding: 1rem;
   margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 80%;
+  min-width: 80%;
 }
 
-.activity-name {
-
+.addNewActivity {
+  background-color: #656363;
+  color: #CAEBF2;
+  border-radius: 10px;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 80%;
+  min-width: 80%;
 }
+
+.createForm {
+  padding: 1rem;
+}
+.list-of-activities {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+input {
+  border-radius: 5px;
+}
+
+.summary {
+  background-color: #CAEBF2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #656363;
+  border-radius: 10px;
+  border: 5px dashed #656363;
+  padding: 1rem;
+  margin: 1rem;
+  max-width: 50%;
+  min-width: 50%;
+}
+
 h2 {
   color: #FF3B3F;
 }
@@ -33,16 +73,18 @@ button {
   color: #656363;
 }
 .panel {
-  width: 50%;
-  padding: 1em;
-  border: 1px solid black;
+  width: 70%;
+  display: flex;
+  margin: 1.5rem auto;
+  flex-direction: column;
+  border-radius: 30px;
+  align-items: center;
+  background-color: #EFEFEF
 }
 
 .positive-balance {
   display: flex;
 }
-
-.editForm {}
 
 .hideForm {
   display: none;
@@ -55,33 +97,31 @@ button {
 .zero {
   text-align: center;
   margin: 0 auto;
-
   font-size: 2rem;
   font-family: helvetica;
 }
 
 .containIt {
   width: 100%;
-
-  position: relative;
   display: flex;
   text-align: center;
 }
 
 .barGraphic {
-  background-color: #CAEBF2;
+  background-color: #EFEFEF;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border: 2px #656363 solid;
   padding-top: 2rem;
-  flex-direction: normal;
   width: 50%;
-  margin: 0 auto;
+  margin: .3rem 0 .3rem 0;
 }
 
 .barGraphic2{
   background-color: #FF3B3F;
   padding-top: 2rem;
-
-  flex-direction: normal;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
   width: 50%;
-  margin: 0 auto
-
+  margin: .3rem 0 .3rem 0;
 }

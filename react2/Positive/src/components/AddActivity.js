@@ -23,7 +23,6 @@ class AddActivity extends React.Component {
     }
     this.props.addActivity(activity)
     const form = document.getElementsByClassName('createForm')[0]
-    console.log("FORM:", form)
     form.reset()
   }
 
@@ -31,14 +30,13 @@ class AddActivity extends React.Component {
 
     return (
       <div>
-        <button onClick={this.showCreateForm}>Create New Activity</button>
+      <button onClick={this.showCreateForm}>Create New Activity</button>
+      <div className="addNewActivity">
         <form className="createForm hideForm" onSubmit={(e) => this.createActivity(e)}>
 
           <p>I would like to
-          <input type="text" name="name" placeholder="run, meditate, drink..." ref={(input) => this.name = input} />.
-          </p>
+          <input type="text" name="name" placeholder="run, meditate, drink..." ref={(input) => this.name = input} />
 
-          <p>
           <input type="radio" name="moreorless" className="moreorless" label="more" value="1" defaultChecked ref={(input) => this.moreorless = input}/> more
           <input type="radio" name="moreorless" className="moreorless" label="less" value="-1" ref={(input) => this.moreorless = input} /> less.
           </p>
@@ -53,6 +51,7 @@ class AddActivity extends React.Component {
           </p>
           <button type="submit">Save</button>
         </form>
+      </div>
       </div>
     )
   }

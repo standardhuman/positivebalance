@@ -13,10 +13,10 @@ class Summary extends React.Component {
     const summary = this.props.summary[key]
     const equalized = equalizer(activity.moreorless, activity.minqty, activity.weight, summary)
     return (
-      <li key={key}>
-        {equalized} points for {activity.name} today.
+      <div key={key}>
+        {equalized} {activity.name} points today.
         <button onClick={() => this.props.removeSummaryId(key)}>&times;</button>
-      </li>
+      </div>
     )
   }
 
@@ -57,15 +57,12 @@ class Summary extends React.Component {
        }
 
     return (
-      <div className="panel">
+      <div className="summary">
       <h2>Summary</h2>
         {runIt}
-
-        Today's total: {total}
         <div className="containIt">
           <div className="barGraphic" style={style}></div>
           <div className="barGraphic2" style={style2}></div>
-
         </div>
         <div className="zero">{total}</div>
         {smiler}
