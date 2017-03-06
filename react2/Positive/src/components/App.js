@@ -28,7 +28,6 @@ class App extends React.Component {
       this.setState({
         summary: JSON.parse(localStorageRef)
       })
-      console.log("localStorageRef", localStorageRef)
     }
   }
 
@@ -61,7 +60,6 @@ class App extends React.Component {
     this.setState({
         summary: summary
       })
-      console.log("this.state", this.state);
   }
 
   updateActivity(key, updatedActivity){
@@ -94,12 +92,10 @@ class App extends React.Component {
 
   removeSummaryId(key) {
     const summary = {...this.state.summary};
-    console.log("summary state copy", summary)
     delete summary[key];
     this.setState({
       summary: summary
     })
-    console.log("remove summary Id");
   }
 
   render() {

@@ -10,7 +10,6 @@ class AddActivity extends React.Component {
   showCreateForm(){
     const createForm = document.querySelector('.createForm')
     createForm.classList.toggle('hideForm')
-    // console.log(document.querySelector('.createForm'));
   }
 
   createActivity(e) {
@@ -33,7 +32,6 @@ class AddActivity extends React.Component {
     })
   }
   render() {
-    const name = ''
     return (
       <div className="addActivityContainer">
       <button onClick={this.showCreateForm}>Create New Activity</button>
