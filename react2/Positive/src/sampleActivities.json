@@ -1,0 +1,9 @@
+{
+  "activities": "act1" {
+    "name": "Run",
+    "moreorless": 1,
+    "unit": "mile",
+    "minqty": 1,
+    "weight": 8
+  }
+}

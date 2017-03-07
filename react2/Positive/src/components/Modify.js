@@ -11,6 +11,7 @@ class Modify extends React.Component {
   editActivity (){
     const correctForm = document.querySelector(`.${this.props.index}`);
     correctForm.classList.toggle('hideForm');
+    setTimeout(function() {correctForm.classList.toggle('hideForm-active')}, 1)
   }
 
   handleChange(e, index){

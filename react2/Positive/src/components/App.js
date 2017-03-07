@@ -74,7 +74,7 @@ class App extends React.Component {
   addActivity(activity) {
     const activities = {...this.state.activities}
     const timeStamp = Date.now()
-    activities[`act${timeStamp}`] = activity
+    activities[`act9${timeStamp}`] = activity
     this.setState({
       activities
     })
@@ -129,6 +129,7 @@ class App extends React.Component {
           {Object
             .keys(this.state.activities)
             .map(key => <Activity key={key} index={key} details={this.state.activities[key]} addToSummary={this.addToSummary} updateActivity={this.updateActivity} removeActivity={this.removeActivity}/>)
+            .reverse()
           }
         </div>
         </div>

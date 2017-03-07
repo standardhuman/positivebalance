@@ -6,6 +6,7 @@ body {
 }
 
 .activity {
+  text-align: center;
   background-color: #CAEBF2;
   color: #656363;
   border-radius: 10px;
@@ -15,8 +16,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 80%;
-  min-width: 80%;
+  width: 30vw;
 }
 
 .addActivityContainer{
@@ -48,8 +48,8 @@ body {
 
 .list-of-activities {
   display: flex;
-  flex-direction: column;;
-  /* align-items: center; */
+  flex-direction: column;
+  align-items: center;
 }
 
 input {
@@ -78,17 +78,27 @@ input {
   flex-direction: column;
   align-items: center;
   width: 75%;
+  transition: 2s;
 }
 
+
 .modifyContainer > form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  /*display: flex;
+  flex-direction: column;*/
+  /*align-items: center;*/
+  opacity: 0;
+  transform: translateY(-20%);
   text-align: center;
   background-color: rgba(101, 99, 99, 0.4);
   border-radius: 10px;
   margin: 1rem;
   padding: 1rem;
+}
+
+form.hideForm-active {
+  transform: translateY(0%);
+  opacity: 1;
+  transition: .6s;
 }
 
 h2 {
@@ -152,8 +162,9 @@ p{
 
 .hideForm {
   display: none;
-  border: red 2px;
 }
+
+
 
 .showForm {
   display: inline-block;
