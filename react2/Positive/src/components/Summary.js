@@ -52,7 +52,7 @@ class Summary extends React.Component {
 
     return (
       <div className="summary">
-      <h2>Summary</h2>
+      <h2>How was your day?</h2>
         {runIt}
         <div className="containIt">
           <div className="barGraphic" style={style}></div>

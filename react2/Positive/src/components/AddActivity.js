@@ -43,7 +43,7 @@ class AddActivity extends React.Component {
           <p>
           <input type="radio" name="moreorless" className="moreorless" label="more" value="1" defaultChecked ref={(input) => this.moreorless = input}/> more
           <input type="radio" name="moreorless" className="moreorless" label="less" value="-1" ref={(input) => this.moreorless = input} /> less.
-        </p>
+          </p>
 
           <p>When I {this.state.name}, the minimum I would {this.state.name} is</p>
           <input type="text" name="minqty" placeholder="1, 2, 3..." ref={(input) => this.minqty = input}/>
@@ -56,7 +56,7 @@ class AddActivity extends React.Component {
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
-            <option value="5" defaultValue>5</option>
+            <option value="5" selected="selected">5</option>
             <option value="6">6</option>
             <option value="7">7</option>
             <option value="8">8</option>

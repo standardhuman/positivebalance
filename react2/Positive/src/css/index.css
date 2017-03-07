@@ -18,12 +18,14 @@ body {
   max-width: 80%;
   min-width: 80%;
 }
+
 .addActivityContainer{
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 50%;
 }
+
 .addNewActivity {
   background-color: #656363;
   color: #CAEBF2;
@@ -46,14 +48,15 @@ body {
 
 .list-of-activities {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: column;;
+  /* align-items: center; */
 }
 
 input {
   border-radius: 5px;
   margin: .3rem;
   text-align: center;
+  width: auto;
 }
 
 .summary {
@@ -90,7 +93,9 @@ input {
 
 h2 {
   color: #FF3B3F;
+  text-align: center;
 }
+
 h1 {
   color: #4a4848;
 }
@@ -98,16 +103,37 @@ h1 {
 p{
   margin: 0.3rem;
 }
-button {
-  color: #656363;
-}
 
-.clearActivities {
+.clearLoadButtons {
+  display: flex;
+  height: auto;
+  flex-direction: row;
+}
+.clearActivitiesButton {
+  width: auto;
+  height: auto;
+  margin: auto;
   color: #FF3B3F;
+  background-color: inherit;
+  border: 0;
 }
 
+.loadSamplesButton {
+  width: auto;
+  height: auto;
+  margin: auto;
+  color: #FF3B3F;
+  background-color: inherit;
+  border: 0;
+}
 .newActivityButton {
-  color: #5aed00
+  background-color: #CAEBF2;
+  font-size: 1em;
+  font-weight: bold;
+  color: #FF3B3F;
+  width: auto;
+  height: auto;
+  border-radius: 10px;
 }
 
 .panel {
@@ -126,6 +152,7 @@ button {
 
 .hideForm {
   display: none;
+  border: red 2px;
 }
 
 .showForm {

@@ -118,10 +118,12 @@ class App extends React.Component {
     return (
       <div className='positive-balance'>
         <div className="activity-list panel">
+          <div className="clearLoadButtons">
+            <button className="loadSamplesButton" onClick={this.loadActivities}>Load Sample Data</button> |
+            <button className="clearActivitiesButton" onClick={this.clearActivities}>Clear All Activities</button>
+          </div>
           <Header tagline="How was your day?" />
           <Summary activities={this.state.activities} summary={this.state.summary} removeSummaryId={this.removeSummaryId}/>
-          <button className="loadSamples" onClick={this.loadActivities}>Load Sample Activities</button>
-          <button className="clearActivities" onClick={this.clearActivities}>Clear Activities</button>
           <AddActivity addActivity={this.addActivity} />
           <div className="list-of-activities">
           {Object
