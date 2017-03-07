@@ -43,13 +43,11 @@ class Summary extends React.Component {
     }, 0)
     let style;
     let style2;
-    let smiler;
     if (total >= 0) {
       style = {paddingLeft: total * 10};
     }
       else {
          style2 = {paddingRight: total * -10};
-         smiler = ": ( don't do drugs";
        }
 
     return (
@@ -61,7 +59,6 @@ class Summary extends React.Component {
           <div className="barGraphic2" style={style2}></div>
         </div>
         <div className="zero">{total}</div>
-        {smiler}
       </div>
     )
   }

@@ -20,6 +20,7 @@ class App extends React.Component {
     this.handleSummary = this.handleSummary.bind(this)
     this.removeActivity = this.removeActivity.bind(this)
     this.removeSummaryId = this.removeSummaryId.bind(this)
+    this.clearActivities = this.clearActivities.bind(this)
   }
 
   handleSummary() {
@@ -98,6 +99,21 @@ class App extends React.Component {
     })
   }
 
+  clearActivities() {
+    const activities = {...this.state.activities};
+    const summary = {...this.state.summary};
+    Object.keys(activities).forEach((key) => {
+      activities[key] = null
+    })
+    Object.keys(summary).forEach((key) => {
+      delete summary[key]
+    })
+    this.setState({
+      activities: activities,
+      summary: summary
+    })
+  }
+
   render() {
     return (
       <div className='positive-balance'>
@@ -105,6 +121,7 @@ class App extends React.Component {
           <Header tagline="How was your day?" />
           <Summary activities={this.state.activities} summary={this.state.summary} removeSummaryId={this.removeSummaryId}/>
           <button onClick={this.loadActivities}>Load Sample Activities</button>
+          <button onClick={this.clearActivities}>Clear Activities</button>
           <AddActivity addActivity={this.addActivity} />
           <div className="list-of-activities">
           {Object
