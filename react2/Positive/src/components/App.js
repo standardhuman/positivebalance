@@ -120,8 +120,8 @@ class App extends React.Component {
         <div className="activity-list panel">
           <Header tagline="How was your day?" />
           <Summary activities={this.state.activities} summary={this.state.summary} removeSummaryId={this.removeSummaryId}/>
-          <button onClick={this.loadActivities}>Load Sample Activities</button>
-          <button onClick={this.clearActivities}>Clear Activities</button>
+          <button className="loadSamples" onClick={this.loadActivities}>Load Sample Activities</button>
+          <button className="clearActivities" onClick={this.clearActivities}>Clear Activities</button>
           <AddActivity addActivity={this.addActivity} />
           <div className="list-of-activities">
           {Object

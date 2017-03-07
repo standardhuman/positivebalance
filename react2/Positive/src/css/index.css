@@ -102,6 +102,14 @@ button {
   color: #656363;
 }
 
+.clearActivities {
+  color: #FF3B3F;
+}
+
+.newActivityButton {
+  color: #5aed00
+}
+
 .panel {
   width: 70%;
   display: flex;

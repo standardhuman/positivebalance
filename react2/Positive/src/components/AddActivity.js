@@ -34,7 +34,7 @@ class AddActivity extends React.Component {
   render() {
     return (
       <div className="addActivityContainer">
-      <button onClick={this.showCreateForm}>Create New Activity</button>
+      <button className="newActivityButton" onClick={this.showCreateForm}>Create New Activity</button>
       <div className="addNewActivity">
         <form className="createForm hideForm" onSubmit={(e) => this.createActivity(e)}>
 
